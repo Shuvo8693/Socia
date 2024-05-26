@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "611984118528",
+    "project_id": "socia-bf9f5",
+    "storage_bucket": "socia-bf9f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611984118528:android:cb6b8eb6c42c3dfd1fd9e5",
+        "android_client_info": {
+          "package_name": "com.example.socia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoZAD8YG-JuAYXOTiiUHK8fe7Y1SKdpFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
