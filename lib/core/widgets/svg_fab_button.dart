@@ -13,6 +13,7 @@ class SvgFabButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: AppColors.notificationAndMessageBgColor,
+      heroTag: UniqueKey(),
       elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       onPressed: onPressed,child: SvgPicture.asset(assetPath,width: 24,height: 24,),);

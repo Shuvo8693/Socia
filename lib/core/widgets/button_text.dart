@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socia/config/theme/app_color.dart';
+import 'package:socia/config/theme/app_icons.dart';
 import 'package:socia/config/theme/app_sizes.dart';
 
 class ButtonText extends StatelessWidget {
   const ButtonText({
-    super.key, required this.onPressed,
+    super.key, required this.onPressed, required this.textA, this.width, this.fontSize, this.fontWeight, this.textB,
   });
   final Function() onPressed;
+  final String textA;
+  final String? textB;
+  final double? width;
+  final double? fontSize;
+  final FontWeight? fontWeight;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SizeConfig.desktopScreen? 45: 36,
-      width:  295,
+      height:  36,
+      width:width?? 295,
       child: TextButton(
           onPressed: onPressed,
-          child: const Row(
+          child:  Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Log in',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700),),
-              Text('  ˅',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900)),
+              Text(textA,style:  TextStyle(fontSize:fontSize?? 14,fontWeight: fontWeight?? FontWeight.w700),),
+              const SizedBox(width: 8,),
+              SvgPicture.asset(AppIcons.downArrow,width: 12.5,height: 6.25,colorFilter: ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),)
             ],
           )),
     );

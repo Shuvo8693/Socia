@@ -6,6 +6,8 @@ import 'package:socia/features/authentication/presentation/screen/login_screen.d
 import 'package:socia/features/home/presentation/screen/home_screen.dart';
 import 'package:socia/features/profile/presentation/screen/profile_screen.dart';
 
+import '../../features/search/presentation/screen/search_screen.dart';
+
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({super.key});
 
@@ -18,7 +20,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
 
   List<Widget> get allScreens=>[
     const HomeScreen(),
-    const  LogInScreen(),
+    const  SearchScreen(),
     HomeScreen(currentNavigatorIndex: currentIndex,),
     const ProfileScreen(),
   ];

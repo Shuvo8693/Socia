@@ -2,7 +2,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:socia/core/widgets/BottomNavBarScreen.dart';
+import 'package:socia/core/widgets/loading_bar.dart';
 import 'package:socia/features/home/presentation/screen/home_screen.dart';
+import 'package:socia/features/post/presentation/screen/upload_content.dart';
 import 'package:socia/firebase_options.dart';
 import 'config/theme/theme_data.dart';
 
@@ -21,7 +23,7 @@ class SocIa extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SocIa',
       theme: themeData(),
-      home: const BottomNavBarScreen(),
+      home:  const BottomNavBarScreen(),
     );
   }
 }

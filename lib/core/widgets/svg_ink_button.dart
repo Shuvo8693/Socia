@@ -33,6 +33,7 @@ class SvgInkButton extends StatelessWidget {
           bottom: bottom ?? 0),
       child: InkWell(
           onTap: onTap,
+          borderRadius: BorderRadius.circular(8),
           child: SvgPicture.asset(
             assetPath,
             width: pictureWidth ?? 24,

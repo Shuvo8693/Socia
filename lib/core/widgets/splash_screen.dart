@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
               const SizedBox(height: 48,),
               CommonButton(onPressed: () {  }, text: 'Create Account',),
               const SizedBox(height: 12,),
-              ButtonText(onPressed: () {  },),
+              ButtonText(onPressed: () {  }, textA: 'Log In', textB: '  ˅',),
 
             ],
           ),

@@ -1,12 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socia/config/theme/app_icons.dart';
 import 'package:socia/core/utility/dummypicturelink.dart';
 import 'package:socia/core/utility/logo.dart';
+import 'package:socia/core/widgets/button_text.dart';
 import 'package:socia/core/widgets/svg_ink_button.dart';
+import 'package:socia/features/notifications/presentation/screen/notification_screen.dart';
+import '../../../../config/theme/app_color.dart';
+import '../../../../core/widgets/common_form_field.dart';
+import '../../../../core/widgets/profile_update_alertdialog.dart';
 import '../../../../core/widgets/svg_fab_button.dart';
 import '../../../../core/widgets/home_screen_stroycard.dart';
+import '../../../message/presentation/screen/message_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.currentNavigatorIndex});
@@ -43,10 +51,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ClipOval(
-            child: Image.network(
-              DummyUrlImage.profile,
-              fit: BoxFit.cover,
+          child: GestureDetector(
+            onTap: (){
+              profileUpdateAlert();
+            },
+            child: ClipOval(
+              child: Image.network(
+                DummyUrlImage.profile,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
@@ -62,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
               child: SvgFabButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const NotificationScreen()));
+                },
                 assetPath: AppIcons.notification,
               ),
             ),
@@ -72,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CircleAvatar(
               child: SvgFabButton(
                 onPressed: () {
-                  uploadImage();
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MessageScreen()));
                 },
                 assetPath: AppIcons.message,
               ),
@@ -211,22 +226,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: 8,
                             ),
                             Expanded(
-                              child: TextFormField(
-                                maxLines: 2,
+                              child: CommonFormField(
                                 controller: _commentsTEC,
-                                decoration: InputDecoration(
-                                  hintText: 'Write Comment...',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.black54),
-                                  border: buildOutlineInputBorderSideNone(),
-                                  focusedBorder:
-                                      buildOutlineInputBorderSideNone(),
-                                  enabledBorder:
-                                      buildOutlineInputBorderSideNone(),
-                                  disabledBorder:
-                                      buildOutlineInputBorderSideNone(),
-                                ),
-                              ),
+                                hintText: 'Write Comment...',),
                             ),
                             TextButton(
                                 onPressed: () {},
@@ -245,12 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-
     );
   }
-
-  OutlineInputBorder buildOutlineInputBorderSideNone() =>
-      const OutlineInputBorder(borderSide: BorderSide.none);
 
   void commentsBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -371,22 +369,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 8,
                           ),
                           Expanded(
-                            child: TextFormField(
-                              maxLines: 2,
-                              controller: TextEditingController(),
-                              decoration: InputDecoration(
-                                hintText: 'Write Comment...',
-                                hintStyle:
-                                    const TextStyle(color: Colors.black54),
-                                border: buildOutlineInputBorderSideNone(),
-                                focusedBorder:
-                                    buildOutlineInputBorderSideNone(),
-                                enabledBorder:
-                                    buildOutlineInputBorderSideNone(),
-                                disabledBorder:
-                                    buildOutlineInputBorderSideNone(),
-                              ),
-                            ),
+                            child: CommonFormField(
+                              controller: _commentsTEC,
+                              hintText: 'Write Comment...',),
                           ),
                           TextButton(
                               onPressed: () {},
@@ -452,6 +437,13 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     });
   }
+  void profileUpdateAlert() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return ProfileUpdateDialog(onPressed: () {  },);
+        });
+  }
 
   @override
   void dispose() {
@@ -459,3 +451,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _commentsTEC.dispose();
   }
 }
+
+
+

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_icons.dart';
 import '../../../../core/utility/dummypicturelink.dart';
+import '../../../../core/widgets/app_bar_title.dart';
 import '../../../../core/widgets/view_tile_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -13,6 +14,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
    bool _isViewNavigateGrid=false;
    bool _isViewNavigateList=false;
+
   void _toggleGridView(){
     _isViewNavigateGrid =true;
     _isViewNavigateList=false;
@@ -37,12 +39,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Center(
-            child: Text(
-          'My Profile',
-          style: Theme.of(context).textTheme.headlineSmall,
-          textAlign: TextAlign.center,
-        )),
+        title:  const Center(
+            child: AppBarTitle(title: 'My Profile')),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -68,12 +66,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Display Name',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(fontWeight: FontWeight.w500),
+                            style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),
                           ),
                           Text('UserName21',
                               style: Theme.of(context)
@@ -132,14 +127,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         itemCount: imageUrl.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
+                                crossAxisCount: 3,
                                 crossAxisSpacing: 5,
                                 mainAxisSpacing: 5),
                         itemBuilder: (context, index) {
                           final imageUelIndex = imageUrl[index];
-                          return Image.network(
-                            imageUelIndex,
-                            fit: BoxFit.cover,
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              imageUelIndex,
+                              fit: BoxFit.cover,
+                            ),
                           );
                         }),
                   )
@@ -151,10 +149,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             itemBuilder: (context, index) {
                               final imageUelIndex = imageUrl[index];
                               return Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                child: Image.network(
-                                  imageUelIndex,
-                                  fit: BoxFit.cover,
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    imageUelIndex,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               );
                             }),
@@ -165,15 +166,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             itemCount: imageUrl.length,
                             gridDelegate:
                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
+                                    crossAxisCount: 3,
                                     crossAxisSpacing: 5,
                                     mainAxisSpacing: 5),
                             itemBuilder: (context, index) {
                               final imageUelIndex = imageUrl[index];
-                               return Image.network(
-                                imageUelIndex,
-                                fit: BoxFit.cover,
-                              );
+                               return ClipRRect(
+                                 borderRadius: BorderRadius.circular(8),
+                                 child: Image.network(
+                                  imageUelIndex,
+                                  fit: BoxFit.cover,
+                                                               ),
+                               );
                             }),
                       ),
           ],

@@ -32,4 +32,4 @@ ThemeData themeData() {
 OutlineInputBorder buildOutlineInputBorder() => OutlineInputBorder(
     borderRadius: BorderRadius.circular(4),
     borderSide:
-        const BorderSide(width: 1, color: AppColors.textFieldBorderSideColor));
+        const BorderSide(width: 1, color: AppColors.textFieldBorderSideAndSenderBarColor));

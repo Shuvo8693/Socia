@@ -63,7 +63,7 @@ class _LogInScreenState extends State<LogInScreen> {
                  suffixIcon: null,
                  obscureText: false,
                  validator: ( String? value) {
-                   return null;
+                   return '';
                    },),
                 const SizedBox(height:16 ,),
                 const Padding(
@@ -87,7 +87,7 @@ class _LogInScreenState extends State<LogInScreen> {
                            ,color: Colors.redAccent.shade100,)),
                  obscureText: _obscureText,
                  validator: ( String? value) {
-                   return null;
+                   return '';
                    },),
                 const SizedBox(height: 8,),
                 Row(

@@ -5,22 +5,24 @@ class FormTextField extends StatelessWidget {
     super.key, required this.controller,
     required this.prefixIcon,
     required this.hintText,
-    required this.suffixIcon,
-    required this.obscureText, required this.validator,
+     this.suffixIcon,
+     this.obscureText, this.validator, this.boxHeight, this.boxWidth,
   });
 
 final TextEditingController controller;
 final Icon prefixIcon;
 final IconButton? suffixIcon;
 final String hintText;
-final bool obscureText;
-final String? Function(String?) validator;
+final bool? obscureText;
+final String Function(String?)? validator;
+final double? boxHeight;
+final double? boxWidth;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 36,
-      width: 295,
+      height:boxHeight?? 36,
+      width: boxWidth?? 295,
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
@@ -32,7 +34,7 @@ final String? Function(String?) validator;
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.grey)
         ),
-        obscureText: obscureText,
+        obscureText: obscureText??false,
         validator: validator,
       ),
     );
