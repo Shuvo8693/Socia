@@ -12,4 +12,5 @@ class AppColors{
   static const Color heartColor= Color(0xffF03864);
   static const Color senderTextColor= Color(0xff6993FF);
   static const Color alertPostContentColor= Color(0xff475467);
+  static const Color followUnfollowMessageColor= Color(0xffEAECF0);
 }

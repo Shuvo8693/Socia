@@ -9,8 +9,10 @@ class SvgInkButton extends StatelessWidget {
     this.left,
     this.right,
     this.bottom,
-    this.color,
-    required this.onTap, this.pictureWidth, this.pictureHeight,
+    required this.onTap,
+    this.pictureWidth,
+    this.pictureHeight,
+    this.isBGSurfaceWhite,
   });
 
   final String assetPath;
@@ -19,9 +21,9 @@ class SvgInkButton extends StatelessWidget {
   final double? left;
   final double? right;
   final double? bottom;
-  final Color? color;
   final double? pictureWidth;
   final double? pictureHeight;
+  final bool? isBGSurfaceWhite;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,11 @@ class SvgInkButton extends StatelessWidget {
             assetPath,
             width: pictureWidth ?? 24,
             height: pictureHeight ?? 24,
-            colorFilter: ColorFilter.mode(color ?? Colors.black, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                Theme.of(context).brightness == Brightness.dark
+                    ? isBGSurfaceWhite != true? Colors.white :Colors.grey.shade700
+                    : Colors.black,
+                BlendMode.srcIn),
           )),
     );
   }

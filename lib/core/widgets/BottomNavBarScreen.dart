@@ -18,30 +18,32 @@ class BottomNavBarScreen extends StatefulWidget {
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int currentIndex = 0;
 
-  List<Widget> get allScreens=>[
-    const HomeScreen(),
-    const  SearchScreen(),
-    HomeScreen(currentNavigatorIndex: currentIndex,),
-    const ProfileScreen(),
-  ];
+  List<Widget> get allScreens => [
+        const HomeScreen(),
+        const SearchScreen(),
+        HomeScreen(
+          currentNavigatorIndex: currentIndex,
+        ),
+        const ProfileScreen(),
+      ];
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: Center(
-        child:allScreens.elementAt(currentIndex)
-      ),
+    return Scaffold(
+      body: Center(child: allScreens.elementAt(currentIndex)),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index){
-          currentIndex=index;
-          setState(() {});
-        },
+          currentIndex: currentIndex,
+          onTap: (index) {
+            currentIndex = index;
+            setState(() {});
+          },
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
           fixedColor: AppColors.primaryColor,
-          selectedIconTheme: const IconThemeData(color: AppColors.primaryColor,),
+          selectedIconTheme: const IconThemeData(
+            color: AppColors.primaryColor,
+          ),
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -51,7 +53,11 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                 colorFilter: currentIndex == 0
                     ? const ColorFilter.mode(
                         AppColors.primaryColor, BlendMode.srcIn)
-                    : null,
+                    : ColorFilter.mode(
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Colors.black,
+                    BlendMode.srcIn),
               ),
               label: 'Home',
             ),
@@ -63,7 +69,11 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                   colorFilter: currentIndex == 1
                       ? const ColorFilter.mode(
                           AppColors.primaryColor, BlendMode.srcIn)
-                      : null,
+                      : ColorFilter.mode(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Colors.black,
+                      BlendMode.srcIn),
                 ),
                 label: 'Search'),
             BottomNavigationBarItem(
@@ -74,7 +84,11 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                   colorFilter: currentIndex == 2
                       ? const ColorFilter.mode(
                           AppColors.primaryColor, BlendMode.srcIn)
-                      : null,
+                      : ColorFilter.mode(
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Colors.black,
+                          BlendMode.srcIn),
                 ),
                 label: 'Add Post'),
             BottomNavigationBarItem(
@@ -85,7 +99,11 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                   colorFilter: currentIndex == 3
                       ? const ColorFilter.mode(
                           AppColors.primaryColor, BlendMode.srcIn)
-                      : null,
+                      :ColorFilter.mode(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Colors.black,
+                      BlendMode.srcIn),
                 ),
                 label: 'Profile'),
           ]),

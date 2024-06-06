@@ -18,7 +18,9 @@ import '../../../message/presentation/screen/message_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.currentNavigatorIndex});
-final int? currentNavigatorIndex;
+
+  final int? currentNavigatorIndex;
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -44,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      widget.currentNavigatorIndex==2? uploadImage():null;
+      widget.currentNavigatorIndex == 2 ? uploadImage() : null;
     });
 
     return Scaffold(
@@ -52,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: (){
+            onTap: () {
               profileUpdateAlert();
             },
             child: ClipOval(
@@ -69,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Image.asset(
               AppLogo.logo,
               fit: BoxFit.scaleDown,
+              color: Theme.of(context).colorScheme.onPrimary,
             )),
         actions: [
           Padding(
@@ -76,9 +79,15 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CircleAvatar(
               child: SvgFabButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const NotificationScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NotificationScreen()));
                 },
                 assetPath: AppIcons.notification,
+                fabBgColor: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.black
+                    : null,
               ),
             ),
           ),
@@ -87,9 +96,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CircleAvatar(
               child: SvgFabButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MessageScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MessageScreen()));
                 },
                 assetPath: AppIcons.message,
+                fabBgColor: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.black
+                    : null,
               ),
             ),
           ),
@@ -134,13 +147,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 365,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
-                    boxShadow: const [
+                    color: Theme.of(context).colorScheme.surface,
+                    boxShadow: [
                       BoxShadow(
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.shadow,
                           blurRadius: 1.0,
                           spreadRadius: 0.0,
-                          offset: Offset(1, 1))
+                          offset: const Offset(1, 1))
                     ]),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -156,6 +169,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: SvgFabButton(
                           onPressed: () {},
                           assetPath: AppIcons.notification,
+                          fabBgColor:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Theme.of(context).colorScheme.surface
+                                  : null,
                         ),
                       ),
                     ),
@@ -228,7 +245,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             Expanded(
                               child: CommonFormField(
                                 controller: _commentsTEC,
-                                hintText: 'Write Comment...',),
+                                hintText: 'Write Comment...',
+                              ),
                             ),
                             TextButton(
                                 onPressed: () {},
@@ -371,7 +389,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             child: CommonFormField(
                               controller: _commentsTEC,
-                              hintText: 'Write Comment...',),
+                              hintText: 'Write Comment...',
+                            ),
                           ),
                           TextButton(
                               onPressed: () {},
@@ -389,59 +408,79 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         });
   }
-  void uploadImage(){
-    showDialog(context: context, builder: (context){
-      return  AlertDialog(
-        title: Column(
-          children: [
-            const Text('Select From',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700)),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                Column(
-                  children: [
-                    SvgInkButton(
-                      assetPath: AppIcons.camera,
-                      onTap: ()async{
-                      XFile? pickCameraImage= await _imagePicker.pickImage(source: ImageSource.camera);
-                      Navigator.pop(context);
-                      },
-                      pictureHeight: 88,
-                      pictureWidth: 88,),
-                          const Text('Camera',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w700)),
-                        ],
-                ),
-                const SizedBox(width: 16,),
-                Column(
-                  children: [
+
+  void uploadImage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Column(
+              children: [
+                const Text('Select From',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
                           SvgInkButton(
-                            assetPath: AppIcons.gallery,
+                            assetPath: AppIcons.camera,
+                            isBGSurfaceWhite: true,
                             onTap: () async {
-                              XFile? pickGalleryImage= await _imagePicker.pickImage(source: ImageSource.gallery);
+                              XFile? pickCameraImage = await _imagePicker
+                                  .pickImage(source: ImageSource.camera);
                               Navigator.pop(context);
                             },
                             pictureHeight: 88,
                             pictureWidth: 88,
                           ),
-                          const Text('Gallery',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700),),
-                  ],
+                          const Text('Camera',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w700)),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Column(
+                        children: [
+                          SvgInkButton(
+                            assetPath: AppIcons.gallery,
+                            isBGSurfaceWhite: true,
+                            onTap: () async {
+                              XFile? pickGalleryImage = await _imagePicker
+                                  .pickImage(source: ImageSource.gallery);
+                              Navigator.pop(context);
+                            },
+                            pictureHeight: 88,
+                            pictureWidth: 88,
+                          ),
+                          const Text(
+                            'Gallery',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ],),
+              ],
             ),
-          ],
-        ),
-      );
-    });
+          );
+        });
   }
+
   void profileUpdateAlert() {
     showDialog(
         context: context,
         builder: (context) {
-          return ProfileUpdateDialog(onPressed: () {  },);
+          return ProfileUpdateDialog(
+            onPressed: () {},
+          );
         });
   }
 
@@ -451,6 +490,3 @@ class _HomeScreenState extends State<HomeScreen> {
     _commentsTEC.dispose();
   }
 }
-
-
-

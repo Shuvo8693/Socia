@@ -1,5 +1,3 @@
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:socia/core/utility/dummypicturelink.dart';
 import 'package:socia/core/widgets/back_button_svg.dart';
@@ -13,10 +11,7 @@ class NotificationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: const Padding(
-          padding: EdgeInsets.all(16.5),
-          child: BackButtonSvg(),
-        ),
+        leading: const BackButtonSvg(),
         title: const AppBarTitle(
           title: 'Notification',
         ),
@@ -29,9 +24,7 @@ class NotificationScreen extends StatelessWidget {
                 backgroundImage: NetworkImage(DummyUrlImage.profile),
               ),
               title: titleTile(
-                  textA: 'UserUUUUUUUUU',
-                  textB: 'User65654'),
-
+                  textA: 'UserUUUUUUUUU', textB: 'User65654', context: context),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(DateTime.now().toString()),
@@ -41,7 +34,8 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 
-  Row titleTile({required String textA, String? textB}) {
+  Row titleTile(
+      {required String textA, String? textB, required BuildContext context}) {
     return Row(
       children: [
         Expanded(
@@ -52,18 +46,24 @@ class NotificationScreen extends StatelessWidget {
                 children: [
                   TextSpan(
                       text: textA,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w700)),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.onPrimary)),
                   const TextSpan(text: ' '),
-                  const TextSpan(
+                  TextSpan(
                       text: 'commented on',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Theme.of(context).colorScheme.onPrimary)),
                   const TextSpan(text: ' '),
                   TextSpan(
                       text: textB,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w700)),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.onPrimary)),
                 ],
               )),
         )
