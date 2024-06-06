@@ -10,12 +10,15 @@ class BackButtonSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgInkButton(
-        pictureWidth: 24,
-        pictureHeight: 24,
-        assetPath: AppIcons.leftArrow,
-        onTap: () {
-          Navigator.pop(context);
-        });
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
+      child: SvgInkButton(
+          pictureWidth: 24,
+          pictureHeight: 24,
+          assetPath: AppIcons.leftArrow,
+          onTap: () {
+            Navigator.pop(context);
+          }),
+    );
   }
 }

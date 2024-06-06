@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../config/theme/app_color.dart';
 import '../utility/dummypicturelink.dart';
 
 class StoryCard extends StatelessWidget {
@@ -25,10 +23,10 @@ class StoryCard extends StatelessWidget {
           margin: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Colors.white,
-            boxShadow: const [
+            color: Theme.of(context).colorScheme.surface,
+            boxShadow:  [
               BoxShadow(
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.shadow,
                 blurRadius: 1.0,
                 spreadRadius: 0.0,
                 offset: Offset(1, 0)

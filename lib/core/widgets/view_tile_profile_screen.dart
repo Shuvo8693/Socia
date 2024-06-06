@@ -28,6 +28,7 @@ class ViewTile extends StatelessWidget {
           height: 16,
           width: 16,
           fit: BoxFit.contain,
+          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.onPrimary, BlendMode.srcIn),
         ),
         title: Text(text,style: const TextStyle(fontWeight: FontWeight.w500),),
         contentPadding: EdgeInsets.only(right: rightPadding??2,left: leftPadding??2 ),

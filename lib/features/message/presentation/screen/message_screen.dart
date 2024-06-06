@@ -34,7 +34,6 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 
   void _onTextChanged() {
-    // Trigger a rebuild whenever the text changes
     setState(() {});
   }
 
@@ -59,12 +58,9 @@ class _MessageScreenState extends State<MessageScreen> {
                 children: [
                   Row(
                     children: [
-                      const SizedBox(
-                        width: 8,
-                      ),
                       const BackButtonSvg(),
                       const SizedBox(
-                        width: 12,
+                        width: 15,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -124,7 +120,7 @@ class _MessageScreenState extends State<MessageScreen> {
                   Container(
                     height: double.infinity,
                     width: double.infinity,
-                    color: Colors.grey.shade200,
+                    color: Theme.of(context).brightness==Brightness.dark? Colors.grey.shade700 :Colors.grey.shade200,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -213,7 +209,7 @@ class ChatBubble extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(receiveMsgIndex),
+                child: Text(receiveMsgIndex,style: TextStyle(color: Theme.of(context).brightness==Brightness.dark? Colors.black:Colors.white),),
               )),
         ),
       ],

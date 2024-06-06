@@ -37,7 +37,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title:  const Center(
             child: AppBarTitle(title: 'My Profile')),
@@ -96,8 +95,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            Divider(height: 2,thickness: 6,color: Colors.grey.shade200,),
-           const SizedBox(height: 6,),
+            Divider(
+              height: 2,
+              thickness: 5,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.grey.shade800
+                  : Colors.grey.shade200,
+            ),
+            const SizedBox(height: 6,),
            Row(
              mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -191,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         text: TextSpan(children: [
       TextSpan(
         text: count,
-        style: const TextStyle(fontSize: 13,color: Colors.black,fontWeight: FontWeight.w500)
+        style:  TextStyle(fontSize: 13,color:Theme.of(context).colorScheme.onPrimary,fontWeight: FontWeight.w500)
       ),
       const TextSpan(text: '  '),
       TextSpan(

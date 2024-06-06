@@ -30,7 +30,10 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(
                 height:SizeConfig.desktopScreen? 70: 60,
                   width: 350,
-                  child: Image.asset(AppLogo.logo)),
+                  child: Image.asset(
+                    AppLogo.logo,
+                    color: Theme.of(context).colorScheme.onPrimary,)
+              ),
               const SizedBox(height: 48,),
               CommonButton(onPressed: () {  }, text: 'Create Account',),
               const SizedBox(height: 12,),
