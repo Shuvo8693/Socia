@@ -20,7 +20,7 @@ final Icon prefixIcon;
 final IconButton? suffixIcon;
 final String hintText;
 final bool? obscureText;
-final String Function(String?)? validator;
+final String? Function(String?)? validator;
 final double? boxHeight;
 final double? boxWidth;
 final Color? borderSideColor;
@@ -41,6 +41,8 @@ final Color? borderSideColor;
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           hintText: hintText,
+          errorMaxLines: 2,
+          errorStyle: const TextStyle(fontSize: 10),
           hintStyle: const TextStyle(color: Colors.grey)
         ),
         obscureText: obscureText??false,

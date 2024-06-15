@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socia/config/theme/app_icons.dart';
 import 'package:socia/core/utility/dummypicturelink.dart';
 import 'package:socia/core/utility/logo.dart';
-import 'package:socia/core/widgets/button_text.dart';
+import 'package:socia/core/widgets/snacbar.dart';
 import 'package:socia/core/widgets/svg_ink_button.dart';
+import 'package:socia/features/home/data/service/get_post_service.dart';
+import 'package:socia/features/home/presentation/bloc/get_post_bloc.dart';
+import 'package:socia/features/home/presentation/bloc/get_post_event.dart';
+import 'package:socia/features/home/presentation/bloc/get_post_state.dart';
 import 'package:socia/features/notifications/presentation/screen/notification_screen.dart';
-import '../../../../config/theme/app_color.dart';
 import '../../../../core/widgets/common_form_field.dart';
 import '../../../../core/widgets/profile_update_alertdialog.dart';
 import '../../../../core/widgets/svg_fab_button.dart';
@@ -32,6 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
       FirebaseFirestore.instance.collection('User');
   final ImagePicker _imagePicker = ImagePicker();
   XFile? imageFile;
+  bool isExpanded = false;
+
+  void toggleTextExpanded() {
+    isExpanded = !isExpanded;
+    setState(() {});
+  }
 
   List<String> imageUrl = [
     'https://media.istockphoto.com/id/1001021150/photo/muslim-man-is-praying-in-mosque.webp?s=1024x1024&w=is&k=20&c=SjMLzeG1LbNne_wYOHM1rKem4K813PIhRg9yO02FTYo=',
@@ -42,13 +50,21 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://images.unsplash.com/photo-1560601575-29dc7d25ff3b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://media.istockphoto.com/id/1311358706/photo/a-portrait-of-a-man-in-abdesthana-using-a-towel.webp?s=1024x1024&w=is&k=20&c=2z2BN7ZwZdsE3z_5fZgioBRWTnC8HKBXJqOYNtPR4wE=',
   ];
+GetPostService? service;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<GetPostBloc>().add(LoadedGetPostEvent());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       widget.currentNavigatorIndex == 2 ? uploadImage() : null;
     });
-
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -110,11 +126,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
           child: Column(
             children: [
               SizedBox(
-                height: 186,
+                height: 178,
                 width: double.infinity,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,123 +158,228 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Container(
-                height: 471,
-                width: 365,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Theme.of(context).colorScheme.surface,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Theme.of(context).colorScheme.shadow,
-                          blurRadius: 1.0,
-                          spreadRadius: 0.0,
-                          offset: const Offset(1, 1))
-                    ]),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(DummyUrlImage.profile),
-                        backgroundColor: Colors.grey,
-                      ),
-                      title: const Text('Display Name'),
-                      subtitle: const Text('UserName21'),
-                      trailing: CircleAvatar(
-                        child: SvgFabButton(
-                          onPressed: () {},
-                          assetPath: AppIcons.notification,
-                          fabBgColor:
-                              Theme.of(context).brightness == Brightness.dark
-                                  ? Theme.of(context).colorScheme.surface
-                                  : null,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: Container(
-                        height: 300,
-                        width: 365,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            image: const DecorationImage(
-                                image: NetworkImage(
-                                  'https://images.unsplash.com/photo-1560601575-29dc7d25ff3b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              SizedBox(
+                height: height * 0.56,
+                width: 368,
+                child: BlocBuilder<GetPostBloc, GetPostState>(
+                  builder: (BuildContext context, state) {
+                    if (state is LoadingGetPostState) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is FailureGetPostState) {
+                      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                        snackBarMessage(
+                            context: context,
+                            title: state.failureMessage,
+                            isColorRed: true);
+                      });
+                    } else if (state is LoadedGetPostState) {
+                      return ListView.builder(
+                        itemCount: state.postListModal.length ?? 0,
+                        itemBuilder: (BuildContext context, int index) {
+                          final postListIndex =
+                              state.postListModal[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, bottom: 8, left: 5, right: 5),
+                            child: AnimatedSize(
+                              duration: const Duration(milliseconds: 200),
+                              curve: Curves.easeInOut,
+                              child: Container(
+                                width: 365,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .shadow,
+                                          blurRadius: 1.0,
+                                          spreadRadius: 0.0,
+                                          offset: const Offset(1, 2))
+                                    ]),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ListTile(
+                                      leading: CircleAvatar(
+                                        backgroundImage: postListIndex
+                                                    .profilePictureURL
+                                                    .isEmpty ?? false
+                                            ? const AssetImage(
+                                                    'assets/images/personBgRemove.png')
+                                                as ImageProvider
+                                            : NetworkImage(postListIndex
+                                                    .profilePictureURL ??
+                                                ''),
+                                        backgroundColor: Colors.grey,
+                                      ),
+                                      title: postListIndex.displayName.isEmpty
+                                          ? const Text('DisplayName')
+                                          : Text(postListIndex.displayName),
+                                      subtitle: postListIndex.userName.isEmpty
+                                          ? const Text('UserName')
+                                          : Text(postListIndex.userName),
+                                      trailing: CircleAvatar(
+                                        child: SvgFabButton(
+                                          onPressed: () {},
+                                          assetPath: AppIcons.notification,
+                                          fabBgColor:
+                                              Theme.of(context).brightness ==
+                                                      Brightness.dark
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .surface
+                                                  : null,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: Text(
+                                        postListIndex.caption ?? '',
+                                        overflow: isExpanded
+                                            ? TextOverflow.visible
+                                            : TextOverflow.ellipsis,
+                                        maxLines: isExpanded ? null : 2,
+                                      ),
+                                    ),
+                                    postListIndex.caption.isEmpty
+                                        ? const SizedBox.shrink()
+                                        : Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                toggleTextExpanded();
+                                              },
+                                              child: isExpanded
+                                                  ? const Text('See less',
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .blueAccent))
+                                                  : const Text(
+                                                      'See more',
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .blueAccent),
+                                                    ),
+                                            ),
+                                          ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6),
+                                      child: Container(
+                                        height: 300,
+                                        width: 365,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                  postListIndex.imageUrl ?? '',
+                                                ),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Wrap(
+                                          children: [
+                                            SvgInkButton(
+                                              onTap: () {},
+                                              assetPath: AppIcons.loveLine,
+                                              top: 8,
+                                              left: 8,
+                                            ),
+                                            SvgInkButton(
+                                              onTap: () =>
+                                                  commentsBottomSheet(context),
+                                              assetPath: AppIcons.comment,
+                                              top: 8,
+                                              left: 15,
+                                            ),
+                                            const Padding(
+                                              padding: EdgeInsets.all(12.0),
+                                              child: Text('Comments'),
+                                            )
+                                          ],
+                                        ),
+                                        SvgInkButton(
+                                          onTap: () {},
+                                          assetPath: AppIcons.bookmark,
+                                          right: 8,
+                                          top: 8,
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: SizedBox(
+                                        height: 65,
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              height: 32,
+                                              width: 32,
+                                              child: CircleAvatar(
+                                                backgroundImage: postListIndex
+                                                    .profilePictureURL
+                                                    .isEmpty
+                                                    ? const AssetImage(
+                                                    'assets/images/personBgRemove.png')
+                                                as ImageProvider
+                                                    : NetworkImage(postListIndex
+                                                    .profilePictureURL ??
+                                                    ''),
+                                                backgroundColor: Colors.grey,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Expanded(
+                                              child: CommonFormField(
+                                                controller: _commentsTEC,
+                                                hintText: 'Write Comment...',
+                                              ),
+                                            ),
+                                            TextButton(
+                                                onPressed: () {},
+                                                child: const Text(
+                                                  'Post',
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                fit: BoxFit.cover)),
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Wrap(
-                            children: [
-                              SvgInkButton(
-                                onTap: () {},
-                                assetPath: AppIcons.loveLine,
-                                top: 8,
-                                left: 8,
-                              ),
-                              SvgInkButton(
-                                onTap: () => commentsBottomSheet(context),
-                                assetPath: AppIcons.comment,
-                                top: 8,
-                                left: 15,
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text('Comments'),
-                              )
-                            ],
-                          ),
-                          SvgInkButton(
-                            onTap: () {},
-                            assetPath: AppIcons.bookmark,
-                            right: 8,
-                            top: 8,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: SizedBox(
-                        height: 65,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 32,
-                              width: 32,
-                              child: ClipOval(
-                                child: Image.network(
-                                  DummyUrlImage.profile,
-                                  fit: BoxFit.cover,
-                                ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              child: CommonFormField(
-                                controller: _commentsTEC,
-                                hintText: 'Write Comment...',
-                              ),
-                            ),
-                            TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Post',
-                                  style: TextStyle(fontSize: 18),
-                                )),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                          );
+                        },
+                      );
+                    }
+                    return  Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Something went wrong...'),
+                        errorFunction(state)
+                      ],
+                    ));
+                  },
                 ),
               ),
             ],
@@ -267,6 +388,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+Text errorFunction(state){
+  if(state is FailureGetPostState){
+  return Text(state.failureMessage);
+  }
+  return const Text('');
+}
 
   void commentsBottomSheet(BuildContext context) {
     showModalBottomSheet(
