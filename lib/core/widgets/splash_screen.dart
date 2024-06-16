@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socia/config/theme/app_sizes.dart';
 import 'package:socia/core/utility/logo.dart';
-import 'package:socia/features/authentication/presentation/bloc/auth_bloc.dart';
-import 'package:socia/features/authentication/presentation/bloc/auth_event.dart';
-import 'package:socia/features/authentication/presentation/bloc/auth_state.dart';
 import 'package:socia/features/authentication/presentation/screen/login_screen.dart';
 import 'button_text.dart';
 import 'common_button.dart';
