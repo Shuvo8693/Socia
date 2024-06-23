@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_sizes.dart';
 import 'package:socia/core/utility/logo.dart';
@@ -13,12 +14,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     SizeConfig.init(context);
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,41 +29,17 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                  height: SizeConfig.desktopScreen ? 70 : 60,
+                height:SizeConfig.desktopScreen? 70: 60,
                   width: 350,
                   child: Image.asset(
                     AppLogo.logo,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  )),
-              const SizedBox(
-                height: 48,
+                    color: Theme.of(context).colorScheme.onPrimary,)
               ),
-              CommonButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LogInScreen(
-                                isLogin: false,
-                              )));
-                },
-                text: 'Create Account',
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              ButtonText(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LogInScreen(
-                                isLogin: true,
-                              )));
-                },
-                textA: 'Log In',
-                textB: '  ˅',
-              ),
+              const SizedBox(height: 48,),
+              CommonButton(onPressed: () {  }, text: 'Create Account',),
+              const SizedBox(height: 12,),
+              ButtonText(onPressed: () {  }, textA: 'Log In', textB: '  ˅',),
+
             ],
           ),
         ),
@@ -70,3 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
+
+
+
+
