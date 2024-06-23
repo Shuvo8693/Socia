@@ -1,4 +1,6 @@
-class UserModel {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class UserList {
   String userName;
   String profilePictureURL;
   String email;
@@ -6,10 +8,10 @@ class UserModel {
   String bio;
   List<dynamic> follower;
   List<dynamic> following;
-  DateTime createdAt;
-  DateTime updatedAt;
+  Timestamp createdAt;
+  Timestamp updatedAt;
 
-  UserModel({required this.bio,
+  UserList({required this.bio,
       required this.displayName,
       required this.email,
       required this.profilePictureURL,
@@ -19,17 +21,17 @@ class UserModel {
       required this.createdAt,
       required this.updatedAt});
 
-  factory UserModel.fromJson(Map<String, dynamic> data) {
-    return UserModel(
-      bio: data['Bio'],
-      displayName: data['displayName'],
-      email: data['email'],
-      profilePictureURL: data['profilePictureURL'],
-      userName: data['userName'] ,
+  factory UserList.fromJson(Map<String, dynamic> data) {
+    return UserList(
+      bio: data['Bio']??'',
+      displayName: data['displayName']??'',
+      email: data['email']??'',
+      profilePictureURL: data['profilePictureURL']??'',
+      userName: data['userName']??'' ,
       follower: data['Follower'] ??[],
       following: data['Following']??[],
-      createdAt: (data['createdAt'] as DateTime).toUtc(),
-      updatedAt: (data['updatedAt'] as DateTime).toUtc(),
+      createdAt: data['createdAt'] ??Timestamp.now(),
+      updatedAt: data['updatedAt'] ??Timestamp.now(),
     );
   }
 
@@ -47,3 +49,6 @@ class UserModel {
     return data;
   }
 }
+
+
+

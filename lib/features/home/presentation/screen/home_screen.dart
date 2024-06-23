@@ -1,22 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:socia/home_screen_imports.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:socia/config/theme/app_icons.dart';
-import 'package:socia/core/utility/dummypicturelink.dart';
-import 'package:socia/core/utility/logo.dart';
-import 'package:socia/core/widgets/snacbar.dart';
-import 'package:socia/core/widgets/svg_ink_button.dart';
-import 'package:socia/features/home/data/service/get_post_service.dart';
-import 'package:socia/features/home/presentation/bloc/get_post_bloc.dart';
-import 'package:socia/features/home/presentation/bloc/get_post_event.dart';
-import 'package:socia/features/home/presentation/bloc/get_post_state.dart';
-import 'package:socia/features/notifications/presentation/screen/notification_screen.dart';
-import '../../../../core/widgets/common_form_field.dart';
-import '../../../../core/widgets/profile_update_alertdialog.dart';
-import '../../../../core/widgets/svg_fab_button.dart';
-import '../../../../core/widgets/home_screen_stroycard.dart';
 import '../../../message/presentation/screen/message_screen.dart';
+import '../bloc/get_post_bloc/get_post_event.dart';
+import '../bloc/story_list_bloc/story_list_bloc.dart';
+import '../bloc/story_list_bloc/story_list_event.dart';
+import '../widget/home_page_story.dart';
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.currentNavigatorIndex});
@@ -29,9 +21,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _commentsTEC = TextEditingController();
-  final bool _shouldUseAddIcon = false;
-  CollectionReference collectionReference =
-      FirebaseFirestore.instance.collection('User');
   final ImagePicker _imagePicker = ImagePicker();
   XFile? imageFile;
   bool isExpanded = false;
@@ -41,21 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
-  List<String> imageUrl = [
-    'https://media.istockphoto.com/id/1001021150/photo/muslim-man-is-praying-in-mosque.webp?s=1024x1024&w=is&k=20&c=SjMLzeG1LbNne_wYOHM1rKem4K813PIhRg9yO02FTYo=',
-    'https://media.istockphoto.com/id/1149556870/photo/muslim-man-is-praying-in-mosque.webp?s=1024x1024&w=is&k=20&c=J-6dfumiT0-kV4Enmn8yNt_Ya6vVSveLB9STauDrCjo=',
-    'https://media.istockphoto.com/id/513115670/photo/religious-muslim-man-reading-holy-koran.webp?s=1024x1024&w=is&k=20&c=y7G--UCsp-PXsYX0lgkz79V4WJCKyyRU9EK71LnU9ko=',
-    'https://media.istockphoto.com/id/1139230133/photo/man-holding-prayer-beads-while-praying-at-mosque.webp?s=1024x1024&w=is&k=20&c=rVxNrePkjrWmW79WCXpksmlre-gkOsBq_9ofgoJYw88=',
-    'https://media.istockphoto.com/id/545376750/photo/young-muslim-man-praying.webp?s=1024x1024&w=is&k=20&c=wMNoAyiN7SbifRpiC7CoCpvDWGOSbkxO2DSa8VPf3-c=',
-    'https://images.unsplash.com/photo-1560601575-29dc7d25ff3b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://media.istockphoto.com/id/1311358706/photo/a-portrait-of-a-man-in-abdesthana-using-a-towel.webp?s=1024x1024&w=is&k=20&c=2z2BN7ZwZdsE3z_5fZgioBRWTnC8HKBXJqOYNtPR4wE=',
-  ];
-GetPostService? service;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<GetPostBloc>().add(LoadedGetPostEvent());
+      context.read<StoryBloc>().add(ImageAndProfileLoadStoryEvent());
+      context.read<StoryListBloc>().add(LoadStoryListEvent());
     });
   }
 
@@ -129,34 +110,10 @@ GetPostService? service;
           padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 178,
                 width: double.infinity,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    StoryCard(
-                        imageIndex: imageUrl.first,
-                        shouldUseAddIcon: true,
-                        onTab: () {},
-                        text: 'me'),
-                    Flexible(
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: imageUrl.length,
-                          itemBuilder: (context, index) {
-                            final imageIndex = imageUrl[index];
-                            return StoryCard(
-                              imageIndex: imageIndex,
-                              shouldUseAddIcon: _shouldUseAddIcon,
-                              onTab: () {},
-                              text: 'User Name',
-                            );
-                          }),
-                    ),
-                  ],
-                ),
+                child:HomePageStory(),
               ),
               SizedBox(
                 height: height * 0.56,
@@ -165,7 +122,7 @@ GetPostService? service;
                   builder: (BuildContext context, state) {
                     if (state is LoadingGetPostState) {
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: CupertinoActivityIndicator(),
                       );
                     } else if (state is FailureGetPostState) {
                       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -176,7 +133,7 @@ GetPostService? service;
                       });
                     } else if (state is LoadedGetPostState) {
                       return ListView.builder(
-                        itemCount: state.postListModal.length ?? 0,
+                        itemCount: state.postListModal.length,
                         itemBuilder: (BuildContext context, int index) {
                           final postListIndex =
                               state.postListModal[index];
@@ -209,13 +166,12 @@ GetPostService? service;
                                       leading: CircleAvatar(
                                         backgroundImage: postListIndex
                                                     .profilePictureURL
-                                                    .isEmpty ?? false
+                                                    .isEmpty
                                             ? const AssetImage(
                                                     'assets/images/personBgRemove.png')
                                                 as ImageProvider
                                             : NetworkImage(postListIndex
-                                                    .profilePictureURL ??
-                                                ''),
+                                                    .profilePictureURL),
                                         backgroundColor: Colors.grey,
                                       ),
                                       title: postListIndex.displayName.isEmpty
@@ -242,7 +198,7 @@ GetPostService? service;
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8),
                                       child: Text(
-                                        postListIndex.caption ?? '',
+                                        postListIndex.caption ,
                                         overflow: isExpanded
                                             ? TextOverflow.visible
                                             : TextOverflow.ellipsis,
@@ -282,7 +238,7 @@ GetPostService? service;
                                                 BorderRadius.circular(8),
                                             image: DecorationImage(
                                                 image: NetworkImage(
-                                                  postListIndex.imageUrl ?? '',
+                                                  postListIndex.imageUrl ,
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
@@ -338,8 +294,7 @@ GetPostService? service;
                                                     'assets/images/personBgRemove.png')
                                                 as ImageProvider
                                                     : NetworkImage(postListIndex
-                                                    .profilePictureURL ??
-                                                    ''),
+                                                    .profilePictureURL),
                                                 backgroundColor: Colors.grey,
                                               ),
                                             ),
@@ -617,3 +572,5 @@ Text errorFunction(state){
     _commentsTEC.dispose();
   }
 }
+
+

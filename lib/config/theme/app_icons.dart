@@ -26,6 +26,7 @@ class AppIcons{
   static String video ='$_assetBasePath/video.svg';
   static String send ='$_assetBasePath/send.svg';
   static String leftArrow ='$_assetBasePath/left_arrow.svg';
+
   static String user ='assets/images/User.png';
   static String camera ='assets/images/Camera.svg';
   static String gallery ='assets/images/Gallery.svg';

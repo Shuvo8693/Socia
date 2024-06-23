@@ -1,8 +1,9 @@
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socia/features/home/data/service/get_post_service.dart';
-import 'package:socia/features/home/presentation/bloc/get_post_event.dart';
-import 'package:socia/features/home/presentation/bloc/get_post_state.dart';
+import 'package:socia/features/home/presentation/bloc/get_post_bloc/get_post_state.dart';
+
+import 'get_post_event.dart';
 
 class GetPostBloc extends Bloc<GetPostEvent, GetPostState> {
   GetPostBloc({required this.getPostService}) : super(InitializedGetPostState()) {

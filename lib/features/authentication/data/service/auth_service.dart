@@ -8,7 +8,7 @@ class AuthService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   String existMessage = '';
 
-  Future<bool> createCredentials(String email, String password, UserModel userModel) async {
+  Future<bool> createCredentials(String email, String password, UserList userModel) async {
     QuerySnapshot result = await _fireStore
         .collection('User')
         .where('email', isEqualTo: email)

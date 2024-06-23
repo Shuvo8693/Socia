@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:socia/core/utility/assets_image.dart';
 import '../utility/dummypicturelink.dart';
 
 class StoryCard extends StatelessWidget {
   const StoryCard({
     super.key,
     required this.imageIndex,
-    required bool shouldUseAddIcon, required this.onTab, required this.text,
+    required bool shouldUseAddIcon,
+    this.onTab,
+    required this.text,
+    required this.image,
   }) : _shouldUseAddIcon = shouldUseAddIcon;
 
   final String imageIndex;
   final bool _shouldUseAddIcon;
-  final Function() onTab;
-  final String text;
+  final Function()? onTab;
+  final String? text;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -19,26 +24,25 @@ class StoryCard extends StatelessWidget {
       children: [
         Container(
           height: 154,
-          width:96 ,
+          width: 96,
           margin: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Theme.of(context).colorScheme.surface,
-            boxShadow:  [
-              BoxShadow(
-                color: Theme.of(context).colorScheme.shadow,
-                blurRadius: 1.0,
-                spreadRadius: 0.0,
-                offset: Offset(1, 0)
-              )
-            ]
-          ),
-
-          child:  Column(
+              borderRadius: BorderRadius.circular(8),
+              color: Theme.of(context).colorScheme.surface,
+              boxShadow: [
+                BoxShadow(
+                    color: Theme.of(context).colorScheme.shadow,
+                    blurRadius: 1.0,
+                    spreadRadius: 0.0,
+                    offset: const Offset(1, 0))
+              ]),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(text),
-              const SizedBox(height: 5,)
+              Text(text ?? 'No name'),
+              const SizedBox(
+                height: 5,
+              )
             ],
           ),
         ),
@@ -49,12 +53,14 @@ class StoryCard extends StatelessWidget {
               onTap: onTab,
               child: Container(
                 height: 128,
-                width:96 ,
+                width: 96,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(image: NetworkImage(imageIndex),fit: BoxFit.cover)
-                ),
-                // child: Image.network(imageIndex,fit: BoxFit.fill,),
+                    image: DecorationImage(
+                        image: imageIndex.isEmpty
+                            ? AssetImage(AssetImg.noImage)
+                            : NetworkImage(imageIndex) as ImageProvider,
+                        fit: BoxFit.cover)),
               ),
             ),
           ),
@@ -62,21 +68,26 @@ class StoryCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: SizedBox(
-            height:28 ,
+            height: 28,
             width: 28,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(DummyUrlImage.profile),
+              backgroundImage: image!.isNotEmpty
+                  ? NetworkImage(image!)
+                  : AssetImage(AssetImg.personImg) as ImageProvider,
               backgroundColor: Colors.grey,
             ),
           ),
         ),
-        _shouldUseAddIcon?
-        const Positioned(
-            left: 40,
-            top: 60,
-            child: Icon(Icons.add,size: 35,color: Colors.white,))
+        _shouldUseAddIcon
+            ? const Positioned(
+                left: 41,
+                top: 62,
+                child: Icon(
+                  Icons.add,
+                  size: 25,
+                  color: Colors.white,
+                ))
             : const SizedBox(),
-
       ],
     );
   }

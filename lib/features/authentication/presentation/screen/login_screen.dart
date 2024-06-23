@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -153,7 +154,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                   AuthRegisteredEvent(context,
                                       email: _emailTEC.text,
                                       password: _passwordTEC.text,
-                                      userModel: UserModel(
+                                      userModel: UserList(
                                           bio: '',
                                           displayName: '',
                                           email: _emailTEC.text,
@@ -161,8 +162,8 @@ class _LogInScreenState extends State<LogInScreen> {
                                           userName: '',
                                           follower: [],
                                           following: [],
-                                          createdAt: DateTime.timestamp(),
-                                          updatedAt: DateTime.timestamp())));
+                                          createdAt: Timestamp.now(),
+                                          updatedAt: Timestamp.now())));
                             }else{
                               return _textFieldHeight();
                             }
