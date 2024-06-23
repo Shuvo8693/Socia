@@ -5,11 +5,10 @@ class User {
   String displayName;
   String bio;
 
-  User({
-    required this.bio,
-    required this.displayName,
-    required this.email,
-    required this.profilePictureURL,
-    required this.userName});
-
+  User(
+      {required this.bio,
+      required this.displayName,
+      required this.email,
+      required this.profilePictureURL,
+      required this.userName});
 }

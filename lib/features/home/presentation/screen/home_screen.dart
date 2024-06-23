@@ -1,14 +1,12 @@
-
-import 'package:socia/home_screen_imports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:socia/home_screen_imports.dart';
+
 import '../../../message/presentation/screen/message_screen.dart';
 import '../bloc/get_post_bloc/get_post_event.dart';
 import '../bloc/story_list_bloc/story_list_bloc.dart';
 import '../bloc/story_list_bloc/story_list_event.dart';
 import '../widget/home_page_story.dart';
-
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.currentNavigatorIndex});
@@ -113,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 178,
                 width: double.infinity,
-                child:HomePageStory(),
+                child: HomePageStory(),
               ),
               SizedBox(
                 height: height * 0.56,
@@ -135,8 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return ListView.builder(
                         itemCount: state.postListModal.length,
                         itemBuilder: (BuildContext context, int index) {
-                          final postListIndex =
-                              state.postListModal[index];
+                          final postListIndex = state.postListModal[index];
                           return Padding(
                             padding: const EdgeInsets.only(
                                 top: 10, bottom: 8, left: 5, right: 5),
@@ -165,13 +162,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ListTile(
                                       leading: CircleAvatar(
                                         backgroundImage: postListIndex
-                                                    .profilePictureURL
-                                                    .isEmpty
+                                                .profilePictureURL.isEmpty
                                             ? const AssetImage(
                                                     'assets/images/personBgRemove.png')
                                                 as ImageProvider
                                             : NetworkImage(postListIndex
-                                                    .profilePictureURL),
+                                                .profilePictureURL),
                                         backgroundColor: Colors.grey,
                                       ),
                                       title: postListIndex.displayName.isEmpty
@@ -198,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8),
                                       child: Text(
-                                        postListIndex.caption ,
+                                        postListIndex.caption,
                                         overflow: isExpanded
                                             ? TextOverflow.visible
                                             : TextOverflow.ellipsis,
@@ -238,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 BorderRadius.circular(8),
                                             image: DecorationImage(
                                                 image: NetworkImage(
-                                                  postListIndex.imageUrl ,
+                                                  postListIndex.imageUrl,
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
@@ -288,13 +284,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: 32,
                                               child: CircleAvatar(
                                                 backgroundImage: postListIndex
-                                                    .profilePictureURL
-                                                    .isEmpty
+                                                        .profilePictureURL
+                                                        .isEmpty
                                                     ? const AssetImage(
-                                                    'assets/images/personBgRemove.png')
-                                                as ImageProvider
+                                                            'assets/images/personBgRemove.png')
+                                                        as ImageProvider
                                                     : NetworkImage(postListIndex
-                                                    .profilePictureURL),
+                                                        .profilePictureURL),
                                                 backgroundColor: Colors.grey,
                                               ),
                                             ),
@@ -326,9 +322,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       );
                     }
-                    return  Center(
+                    return Center(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text('Something went wrong...'),
                         errorFunction(state)
@@ -343,12 +339,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-Text errorFunction(state){
-  if(state is FailureGetPostState){
-  return Text(state.failureMessage);
+
+  Text errorFunction(state) {
+    if (state is FailureGetPostState) {
+      return Text(state.failureMessage);
+    }
+    return const Text('');
   }
-  return const Text('');
-}
 
   void commentsBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -572,5 +569,3 @@ Text errorFunction(state){
     _commentsTEC.dispose();
   }
 }
-
-

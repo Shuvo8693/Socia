@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:socia/core/utility/assets_image.dart';
-import '../utility/dummypicturelink.dart';
 
 class StoryCard extends StatelessWidget {
   const StoryCard({

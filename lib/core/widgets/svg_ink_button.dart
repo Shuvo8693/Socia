@@ -42,7 +42,9 @@ class SvgInkButton extends StatelessWidget {
             height: pictureHeight ?? 24,
             colorFilter: ColorFilter.mode(
                 Theme.of(context).brightness == Brightness.dark
-                    ? isBGSurfaceWhite != true? Colors.white :Colors.grey.shade700
+                    ? isBGSurfaceWhite != true
+                        ? Colors.white
+                        : Colors.grey.shade700
                     : Colors.black,
                 BlendMode.srcIn),
           )),

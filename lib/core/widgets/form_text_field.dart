@@ -16,44 +16,48 @@ class FormTextField extends StatelessWidget {
   });
 
   final TextEditingController controller;
-final Icon prefixIcon;
-final IconButton? suffixIcon;
-final String hintText;
-final bool? obscureText;
-final String? Function(String?)? validator;
-final double? boxHeight;
-final double? boxWidth;
-final Color? borderSideColor;
+  final Icon prefixIcon;
+  final IconButton? suffixIcon;
+  final String hintText;
+  final bool? obscureText;
+  final String? Function(String?)? validator;
+  final double? boxHeight;
+  final double? boxWidth;
+  final Color? borderSideColor;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height:boxHeight?? 36,
-      width: boxWidth?? 295,
+      height: boxHeight ?? 36,
+      width: boxWidth ?? 295,
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(4),
-              borderSide:  const BorderSide(width: 1,color:  Color(0xFFF97066))),
-          enabledBorder: buildOutlineInputBorder(),
-          focusedBorder: buildOutlineInputBorder(),
-          contentPadding: const EdgeInsets.all(3),
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-          hintText: hintText,
-          errorMaxLines: 2,
-          errorStyle: const TextStyle(fontSize: 10),
-          hintStyle: const TextStyle(color: Colors.grey)
-        ),
-        obscureText: obscureText??false,
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xFFF97066))),
+            enabledBorder: buildOutlineInputBorder(),
+            focusedBorder: buildOutlineInputBorder(),
+            contentPadding: const EdgeInsets.all(3),
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            hintText: hintText,
+            errorMaxLines: 2,
+            errorStyle: const TextStyle(fontSize: 10),
+            hintStyle: const TextStyle(color: Colors.grey)),
+        obscureText: obscureText ?? false,
         validator: validator,
       ),
     );
   }
 
   OutlineInputBorder buildOutlineInputBorder() {
-    return OutlineInputBorder(borderRadius: BorderRadius.circular(4),
-            borderSide:   BorderSide(width: 1,color:  borderSideColor??AppColors.textFieldBorderSideAndSenderBarColor));
+    return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(
+            width: 1,
+            color: borderSideColor ??
+                AppColors.textFieldBorderSideAndSenderBarColor));
   }
-
 }

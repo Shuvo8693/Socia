@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_color.dart';
 
 class FoUnfMsgButton extends StatelessWidget {
-  const FoUnfMsgButton(
-      {super.key,
-       this.text,
-      this.isBgColorGrey,
-      required this.onPressed,
-      this.paddingHorizontal,
-      this.isReverseBgColor, this.isFollow,
-        });
+  const FoUnfMsgButton({
+    super.key,
+    this.text,
+    this.isBgColorGrey,
+    required this.onPressed,
+    this.paddingHorizontal,
+    this.isReverseBgColor,
+    this.isFollow,
+  });
 
   final Function() onPressed;
   final String? text;
@@ -29,17 +30,19 @@ class FoUnfMsgButton extends StatelessWidget {
                 : MaterialStatePropertyAll(isBgColorGrey != true
                     ? AppColors.textFieldBorderSideAndSenderBarColor
                     : AppColors.followUnfollowMessageColor),
-            foregroundColor:isReverseBgColor == true? MaterialStatePropertyAll(
-                isBgColorGrey == true ? Colors.black : Colors.white)
-                  :MaterialStatePropertyAll(
-                isBgColorGrey != true ? Colors.white : Colors.black),
+            foregroundColor: isReverseBgColor == true
+                ? MaterialStatePropertyAll(
+                    isBgColorGrey == true ? Colors.black : Colors.white)
+                : MaterialStatePropertyAll(
+                    isBgColorGrey != true ? Colors.white : Colors.black),
             padding: MaterialStatePropertyAll(EdgeInsets.symmetric(
               horizontal: paddingHorizontal ?? 8,
             ))),
         onPressed: onPressed,
         child: isReverseBgColor != true
-            ? Text(text??'enter title')
-            :isFollow!=true
-            ? const Text('Unfollow'): const Text('Follow'));
+            ? Text(text ?? 'enter title')
+            : isFollow != true
+                ? const Text('Unfollow')
+                : const Text('Follow'));
   }
 }

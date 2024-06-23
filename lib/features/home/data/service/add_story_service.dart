@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,7 +12,7 @@ class AddStoryService {
 
   Future<bool> requestToUploadImageStory(XFile image) async {
     String constUid = 'GCl5IWWmviWgHrBeekaHtd1gJ0h1';
-   // String uID = FirebaseAuth.instance.currentUser!.uid;
+    // String uID = FirebaseAuth.instance.currentUser!.uid;
     Uint8List imageData = await image.readAsBytes();
 
     try {
@@ -28,8 +28,8 @@ class AddStoryService {
               .where('userId', isEqualTo: constUid)
               .get();
 
-          if (valueData.docs.isNotEmpty){
-            for (var doc in valueData.docs){
+          if (valueData.docs.isNotEmpty) {
+            for (var doc in valueData.docs) {
               await _fireStore
                   .collection('Story')
                   .doc(doc.id)

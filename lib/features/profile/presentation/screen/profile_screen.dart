@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_icons.dart';
+
 import '../../../../core/utility/dummypicturelink.dart';
 import '../../../../core/widgets/app_bar_title.dart';
 import '../../../../core/widgets/view_tile_profile_screen.dart';
@@ -12,19 +13,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-   bool _isViewNavigateGrid=false;
-   bool _isViewNavigateList=false;
+  bool _isViewNavigateGrid = false;
+  bool _isViewNavigateList = false;
 
-  void _toggleGridView(){
-    _isViewNavigateGrid =true;
-    _isViewNavigateList=false;
+  void _toggleGridView() {
+    _isViewNavigateGrid = true;
+    _isViewNavigateList = false;
     setState(() {});
   }
-  void _toggleListView(){
+
+  void _toggleListView() {
     _isViewNavigateList = true;
-    _isViewNavigateGrid=false;
+    _isViewNavigateGrid = false;
     setState(() {});
   }
+
   List<String> imageUrl = [
     'https://media.istockphoto.com/id/1001021150/photo/muslim-man-is-praying-in-mosque.webp?s=1024x1024&w=is&k=20&c=SjMLzeG1LbNne_wYOHM1rKem4K813PIhRg9yO02FTYo=',
     'https://media.istockphoto.com/id/1149556870/photo/muslim-man-is-praying-in-mosque.webp?s=1024x1024&w=is&k=20&c=J-6dfumiT0-kV4Enmn8yNt_Ya6vVSveLB9STauDrCjo=',
@@ -34,12 +37,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     'https://images.unsplash.com/photo-1560601575-29dc7d25ff3b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://media.istockphoto.com/id/1311358706/photo/a-portrait-of-a-man-in-abdesthana-using-a-towel.webp?s=1024x1024&w=is&k=20&c=2z2BN7ZwZdsE3z_5fZgioBRWTnC8HKBXJqOYNtPR4wE=',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  const Center(
-            child: AppBarTitle(title: 'My Profile')),
+        title: const Center(child: AppBarTitle(title: 'My Profile')),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -56,7 +59,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Image.network(
                         DummyUrlImage.profile,
                         fit: BoxFit.cover,
-                        height: 80,width: 80,
+                        height: 80,
+                        width: 80,
                       ),
                     ),
                     Padding(
@@ -67,7 +71,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           const Text(
                             'Display Name',
-                            style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w700),
                           ),
                           Text('UserName21',
                               style: Theme.of(context)
@@ -102,14 +107,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ? Colors.grey.shade800
                   : Colors.grey.shade200,
             ),
-            const SizedBox(height: 6,),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.center,
+            const SizedBox(
+              height: 6,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ViewTile(
                   onTap: () {
                     _toggleGridView();
-                    },
+                  },
                   text: 'Grid View',
                   svgIcon: AppIcons.grid,
                   rightPadding: 3,
@@ -117,14 +124,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ViewTile(
                   onTap: () {
                     _toggleListView();
-                    },
+                  },
                   text: 'List View',
                   svgIcon: AppIcons.list,
                   leftPadding: 3,
                 ),
-              ],),
-            Divider(height: 1,color: Colors.grey.shade400,indent: 20,endIndent: 20,),
-            const SizedBox(height: 8,),
+              ],
+            ),
+            Divider(
+              height: 1,
+              color: Colors.grey.shade400,
+              indent: 20,
+              endIndent: 20,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
             _isViewNavigateGrid
                 ? Expanded(
                     child: GridView.builder(
@@ -170,19 +185,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             shrinkWrap: true,
                             itemCount: imageUrl.length,
                             gridDelegate:
-                             const SliverGridDelegateWithFixedCrossAxisCount(
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3,
                                     crossAxisSpacing: 5,
                                     mainAxisSpacing: 5),
                             itemBuilder: (context, index) {
                               final imageUelIndex = imageUrl[index];
-                               return ClipRRect(
-                                 borderRadius: BorderRadius.circular(8),
-                                 child: Image.network(
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
                                   imageUelIndex,
                                   fit: BoxFit.cover,
-                                                               ),
-                               );
+                                ),
+                              );
                             }),
                       ),
           ],
@@ -195,23 +210,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return RichText(
         text: TextSpan(children: [
       TextSpan(
-        text: count,
-        style:  TextStyle(fontSize: 13,color:Theme.of(context).colorScheme.onPrimary,fontWeight: FontWeight.w500)
-      ),
+          text: count,
+          style: TextStyle(
+              fontSize: 13,
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontWeight: FontWeight.w500)),
       const TextSpan(text: '  '),
       TextSpan(
-        text: label,
-          style: const TextStyle(fontSize: 13,color: Colors.grey,fontWeight: FontWeight.w400)
-      ),
+          text: label,
+          style: const TextStyle(
+              fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w400)),
     ]));
   }
 
-   bol(){
-   return const Padding(
+  bol() {
+    return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 6),
-      child: Text('•',style: TextStyle(fontSize: 16,color: Colors.grey),),
+      child: Text(
+        '•',
+        style: TextStyle(fontSize: 16, color: Colors.grey),
+      ),
     );
   }
 }
-
-

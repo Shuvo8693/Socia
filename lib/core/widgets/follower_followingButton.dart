@@ -22,7 +22,9 @@ class FollowerFollowingButton extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                   bottom: isSelected
-                      ?  BorderSide(width: 3.0, color: Theme.of(context).colorScheme.onPrimary)
+                      ? BorderSide(
+                          width: 3.0,
+                          color: Theme.of(context).colorScheme.onPrimary)
                       : BorderSide.none),
             ),
             child: Text(

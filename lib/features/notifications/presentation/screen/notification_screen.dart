@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:socia/core/utility/dummypicturelink.dart';
 import 'package:socia/core/widgets/back_button_svg.dart';
+
 import '../../../../core/widgets/app_bar_title.dart';
 
 class NotificationScreen extends StatelessWidget {

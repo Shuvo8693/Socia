@@ -6,9 +6,12 @@ import 'button_text.dart';
 
 class ProfileUpdateDialog extends StatelessWidget {
   const ProfileUpdateDialog({
-    super.key, required this.onPressed,
+    super.key,
+    required this.onPressed,
   });
+
   final Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -28,29 +31,31 @@ class ProfileUpdateDialog extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: AppColors.alertPostContentColor),
       ),
-      actions:  [
+      actions: [
         Center(
           child: Column(
             children: [
               SizedBox(
                   height: 36,
                   width: 224,
-                  child: ElevatedButton(onPressed: onPressed, child: const Text('Update'))),
-              const SizedBox(height: 8,),
+                  child: ElevatedButton(
+                      onPressed: onPressed, child: const Text('Update'))),
+              const SizedBox(
+                height: 8,
+              ),
               SizedBox(
                 height: 36,
                 width: 224,
                 child: ButtonText(
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.pop(context);
                   },
                   textA: 'Skip',
                 ),
               ),
-
-            ],),
+            ],
+          ),
         ),
-
       ],
     );
   }

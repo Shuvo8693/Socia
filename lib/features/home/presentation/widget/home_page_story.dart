@@ -37,7 +37,7 @@ class _HomePageStoryState extends State<HomePageStory> {
                 text: state.userList.first.userName,
                 image: state.userList.first.profilePictureURL,
               );
-            }else{
+            } else {
               return const StoryCard(
                   imageIndex: '', shouldUseAddIcon: false, text: '', image: '');
             }

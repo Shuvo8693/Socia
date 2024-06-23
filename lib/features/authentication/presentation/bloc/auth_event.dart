@@ -18,12 +18,14 @@ class AuthRegisteredEvent extends AuthEvent {
   AuthRegisteredEvent(this.context,
       {required this.email, required this.password, required this.userModel});
 }
-class AuthLoginEvent extends AuthEvent{
+
+class AuthLoginEvent extends AuthEvent {
   final String email;
   final String password;
   final BuildContext context;
 
-  AuthLoginEvent({required this.email,required this.password, required this.context});
+  AuthLoginEvent(
+      {required this.email, required this.password, required this.context});
 }
 
 class AuthLoggedOutEvent extends AuthEvent {}

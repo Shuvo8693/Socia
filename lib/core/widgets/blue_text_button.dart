@@ -6,11 +6,16 @@ import '../../config/theme/app_icons.dart';
 
 class BlueTextButton extends StatelessWidget {
   const BlueTextButton({
-    super.key, required this.text, required this.isIconSet, required this.onPressed,
+    super.key,
+    required this.text,
+    required this.isIconSet,
+    required this.onPressed,
   });
+
   final Function() onPressed;
   final String text;
   final bool isIconSet;
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -24,13 +29,15 @@ class BlueTextButton extends StatelessWidget {
             const SizedBox(
               width: 3,
             ),
-            isIconSet? SvgPicture.asset(
-              AppIcons.rightArrow,
-              width: 20,
-              height: 20,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.primaryColor, BlendMode.srcIn),
-            ): SizedBox()
+            isIconSet
+                ? SvgPicture.asset(
+                    AppIcons.rightArrow,
+                    width: 20,
+                    height: 20,
+                    colorFilter: const ColorFilter.mode(
+                        AppColors.primaryColor, BlendMode.srcIn),
+                  )
+                : SizedBox()
           ],
         ));
   }

@@ -24,7 +24,7 @@ class _AddLocationState extends State<AddLocation> {
               height: 8,
             ),
             SizedBox(
-              height: 52 ,
+              height: 52,
               width: 375,
               child: FormTextField(
                 controller: TextEditingController(),

@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socia/features/home/data/service/add_story_service.dart';
 import 'package:socia/features/home/data/service/story_service.dart';
@@ -16,7 +15,7 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
     on<ImageAndProfileLoadStoryEvent>(
         (event, emit) async => await onImageLoadStoryEvent(event, emit));
     on<AddImageStoryEvent>(
-            (event, emit) async =>await onAddImageStoryEvent(event, emit));
+        (event, emit) async => await onAddImageStoryEvent(event, emit));
   }
 
   StoryService storyService;
@@ -41,19 +40,21 @@ class StoryBloc extends Bloc<StoryEvent, StoryState> {
 
   onAddImageStoryEvent(event, emit) async {
     try {
-        if(event is AddImageStoryEvent){
-          emit(LoadingStoryState());
-          await addStoryService.requestToUploadImageStory(event.image).then((bool value) async{
-            if(value){
-              event.context.read<StoryBloc>().add(ImageAndProfileLoadStoryEvent());
-              event.context.read<StoryListBloc>().add(LoadStoryListEvent());
-            }else{
-              emit(FailureStoryState(errorMessage: addStoryService.errorMessage));
-            }
-          });
-        }
-
-
+      if (event is AddImageStoryEvent) {
+        emit(LoadingStoryState());
+        await addStoryService
+            .requestToUploadImageStory(event.image)
+            .then((bool value) async {
+          if (value) {
+            event.context
+                .read<StoryBloc>()
+                .add(ImageAndProfileLoadStoryEvent());
+            event.context.read<StoryListBloc>().add(LoadStoryListEvent());
+          } else {
+            emit(FailureStoryState(errorMessage: addStoryService.errorMessage));
+          }
+        });
+      }
     } catch (error) {
       log(error.toString());
     }

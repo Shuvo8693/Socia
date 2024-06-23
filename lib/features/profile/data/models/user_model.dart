@@ -11,7 +11,8 @@ class UserList {
   Timestamp createdAt;
   Timestamp updatedAt;
 
-  UserList({required this.bio,
+  UserList(
+      {required this.bio,
       required this.displayName,
       required this.email,
       required this.profilePictureURL,
@@ -23,20 +24,20 @@ class UserList {
 
   factory UserList.fromJson(Map<String, dynamic> data) {
     return UserList(
-      bio: data['Bio']??'',
-      displayName: data['displayName']??'',
-      email: data['email']??'',
-      profilePictureURL: data['profilePictureURL']??'',
-      userName: data['userName']??'' ,
-      follower: data['Follower'] ??[],
-      following: data['Following']??[],
-      createdAt: data['createdAt'] ??Timestamp.now(),
-      updatedAt: data['updatedAt'] ??Timestamp.now(),
+      bio: data['Bio'] ?? '',
+      displayName: data['displayName'] ?? '',
+      email: data['email'] ?? '',
+      profilePictureURL: data['profilePictureURL'] ?? '',
+      userName: data['userName'] ?? '',
+      follower: data['Follower'] ?? [],
+      following: data['Following'] ?? [],
+      createdAt: data['createdAt'] ?? Timestamp.now(),
+      updatedAt: data['updatedAt'] ?? Timestamp.now(),
     );
   }
 
- Map<String,dynamic> toJson() {
-   Map<String, dynamic> data= {};
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = {};
     data['Bio'] = bio;
     data['displayName'] = displayName;
     data['email'] = email;
@@ -49,6 +50,3 @@ class UserList {
     return data;
   }
 }
-
-
-

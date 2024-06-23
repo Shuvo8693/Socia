@@ -20,17 +20,17 @@ ThemeData lightTheme() {
                   TextStyle(fontWeight: FontWeight.w700)),
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(4)))))),
-      textButtonTheme:  TextButtonThemeData(
+      textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
         foregroundColor: const MaterialStatePropertyAll(AppColors.primaryColor),
-        overlayColor:  MaterialStatePropertyAll(AppColors.primaryColor.withOpacity(0.2)),
+        overlayColor:
+            MaterialStatePropertyAll(AppColors.primaryColor.withOpacity(0.2)),
         shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)))),
       )),
       dialogTheme: const DialogTheme(
           surfaceTintColor: Colors.white,
-          titleTextStyle: TextStyle(color: Colors.black))
-  );
+          titleTextStyle: TextStyle(color: Colors.black)));
 }
 
 ThemeData darkTheme() {
@@ -52,37 +52,34 @@ ThemeData darkTheme() {
                 TextStyle(fontWeight: FontWeight.w700)),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)))))),
-    textButtonTheme:  TextButtonThemeData(
-          style: ButtonStyle(
-            foregroundColor: const MaterialStatePropertyAll(AppColors.primaryColor),
-            overlayColor:  MaterialStatePropertyAll(AppColors.primaryColor.withOpacity(0.2)),
-            shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(4)))),
-          )),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.grey.shade900
-    ),
+    textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+      foregroundColor: const MaterialStatePropertyAll(AppColors.primaryColor),
+      overlayColor:
+          MaterialStatePropertyAll(AppColors.primaryColor.withOpacity(0.2)),
+      shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(4)))),
+    )),
+    bottomNavigationBarTheme:
+        BottomNavigationBarThemeData(backgroundColor: Colors.grey.shade900),
     dialogBackgroundColor: Colors.white,
     dialogTheme: const DialogTheme(
         surfaceTintColor: Colors.white,
         titleTextStyle: TextStyle(color: Colors.black)),
-
   );
 }
 
-ColorScheme lightColorScheme =  ColorScheme.light(
+ColorScheme lightColorScheme = ColorScheme.light(
     background: Colors.white,
     brightness: Brightness.light,
     onPrimary: Colors.black,
-    shadow: Colors.grey.shade500
-
-);
+    shadow: Colors.grey.shade500);
 
 ColorScheme darkColorScheme = const ColorScheme.dark(
-    brightness: Brightness.dark,
-    background: Colors.black54,
-    onPrimary: Colors.white,
-    shadow: Colors.white,
+  brightness: Brightness.dark,
+  background: Colors.black54,
+  onPrimary: Colors.white,
+  shadow: Colors.white,
 );
 
 OutlineInputBorder buildOutlineInputBorder() => OutlineInputBorder(

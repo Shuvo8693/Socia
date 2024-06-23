@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socia/core/widgets/app_bar_title.dart';
 import 'package:socia/core/widgets/back_button_svg.dart';
-import 'package:socia/core/widgets/common_button.dart';
 import 'package:socia/core/widgets/fo_ufmsg_button.dart';
 
 import '../../../../config/theme/app_icons.dart';
@@ -242,8 +241,10 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
         text: TextSpan(children: [
       TextSpan(
           text: count,
-          style:  TextStyle(
-              fontSize: 13, color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.w500)),
+          style: TextStyle(
+              fontSize: 13,
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontWeight: FontWeight.w500)),
       const TextSpan(text: '  '),
       TextSpan(
           text: label,

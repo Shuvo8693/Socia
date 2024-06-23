@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:socia/config/theme/app_color.dart';
 import 'package:socia/config/theme/app_icons.dart';
-import 'package:socia/features/authentication/presentation/screen/login_screen.dart';
 import 'package:socia/features/home/presentation/screen/home_screen.dart';
 import 'package:socia/features/profile/presentation/screen/profile_screen.dart';
 
@@ -54,10 +53,10 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                     ? const ColorFilter.mode(
                         AppColors.primaryColor, BlendMode.srcIn)
                     : ColorFilter.mode(
-                    Theme.of(context).brightness == Brightness.dark
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Colors.black,
-                    BlendMode.srcIn),
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Colors.black,
+                        BlendMode.srcIn),
               ),
               label: 'Home',
             ),
@@ -70,10 +69,10 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                       ? const ColorFilter.mode(
                           AppColors.primaryColor, BlendMode.srcIn)
                       : ColorFilter.mode(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Colors.black,
-                      BlendMode.srcIn),
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Colors.black,
+                          BlendMode.srcIn),
                 ),
                 label: 'Search'),
             BottomNavigationBarItem(
@@ -99,11 +98,11 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                   colorFilter: currentIndex == 3
                       ? const ColorFilter.mode(
                           AppColors.primaryColor, BlendMode.srcIn)
-                      :ColorFilter.mode(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Colors.black,
-                      BlendMode.srcIn),
+                      : ColorFilter.mode(
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Colors.black,
+                          BlendMode.srcIn),
                 ),
                 label: 'Profile'),
           ]),

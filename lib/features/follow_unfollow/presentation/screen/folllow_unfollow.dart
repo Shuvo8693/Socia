@@ -16,22 +16,25 @@ class FollowUnfollowScreen extends StatefulWidget {
   State<FollowUnfollowScreen> createState() => _FollowUnfollowScreenState();
 }
 
-class _FollowUnfollowScreenState extends State<FollowUnfollowScreen> with SingleTickerProviderStateMixin{
-  final TextEditingController _searchTEC=TextEditingController();
-   late TabController _tabController;
-   bool _isFollow= true;
-   bool _isBgColor= false;
+class _FollowUnfollowScreenState extends State<FollowUnfollowScreen>
+    with SingleTickerProviderStateMixin {
+  final TextEditingController _searchTEC = TextEditingController();
+  late TabController _tabController;
+  bool _isFollow = true;
+  bool _isBgColor = false;
 
- void _toggleButtonProperty(){
-  _isFollow = !_isFollow;
-  _isBgColor= !_isBgColor;
-  setState(() {});
- }
-   void _onTap(int index){
-     setState(() {
-       _tabController.index=index;
-     });
-   }
+  void _toggleButtonProperty() {
+    _isFollow = !_isFollow;
+    _isBgColor = !_isBgColor;
+    setState(() {});
+  }
+
+  void _onTap(int index) {
+    setState(() {
+      _tabController.index = index;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -47,24 +50,35 @@ class _FollowUnfollowScreenState extends State<FollowUnfollowScreen> with Single
         title: const AppBarTitle(title: 'UserName'),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 8,left: 16,right: 16, ),
+        padding: const EdgeInsets.only(
+          top: 8,
+          left: 16,
+          right: 16,
+        ),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 FollowerFollowingButton(
-                    text: 'Following',
-                    onPressed: ()=> _onTap(0),
-                  isSelected: _tabController.index==0,),
+                  text: 'Following',
+                  onPressed: () => _onTap(0),
+                  isSelected: _tabController.index == 0,
+                ),
                 FollowerFollowingButton(
-                    text: 'Follower',
-                    onPressed: ()=> _onTap(1) ,
-                  isSelected: _tabController.index==1,)
+                  text: 'Follower',
+                  onPressed: () => _onTap(1),
+                  isSelected: _tabController.index == 1,
+                )
               ],
             ),
-             Divider(height: 1,color: Colors.grey.shade300,),
-            const SizedBox(height: 10,),
+            Divider(
+              height: 1,
+              color: Colors.grey.shade300,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             FormTextField(
               controller: _searchTEC,
               prefixIcon: const Icon(Icons.search_outlined),
@@ -73,7 +87,9 @@ class _FollowUnfollowScreenState extends State<FollowUnfollowScreen> with Single
               boxHeight: 36,
               borderSideColor: Colors.grey,
             ),
-            const SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             Expanded(
               child: TabBarView(
                 clipBehavior: Clip.antiAlias,
@@ -94,7 +110,7 @@ class _FollowUnfollowScreenState extends State<FollowUnfollowScreen> with Single
                             style: TextStyle(
                                 fontWeight: FontWeight.w400, fontSize: 12)),
                         trailing: FoUnfMsgButton(
-                          onPressed: (){
+                          onPressed: () {
                             _toggleButtonProperty();
                           },
                           isReverseBgColor: true,
@@ -107,7 +123,7 @@ class _FollowUnfollowScreenState extends State<FollowUnfollowScreen> with Single
                   ListView.builder(
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
-                      return  ListTile(
+                      return ListTile(
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(DummyUrlImage.profile),
                         ),
@@ -116,7 +132,7 @@ class _FollowUnfollowScreenState extends State<FollowUnfollowScreen> with Single
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         trailing: FoUnfMsgButton(
-                          onPressed: (){
+                          onPressed: () {
                             showBottomSheetToRemove();
                           },
                           isBgColorGrey: true,
@@ -154,19 +170,26 @@ class _FollowUnfollowScreenState extends State<FollowUnfollowScreen> with Single
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ),
                 ),
-                const Divider(height: 2,),
-                const SizedBox(height: 8,),
-                ButtonText(onPressed: (){}, textA: 'Remove',needColor: Colors.redAccent,)
+                const Divider(
+                  height: 2,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                ButtonText(
+                  onPressed: () {},
+                  textA: 'Remove',
+                  needColor: Colors.redAccent,
+                )
               ],
             ),
           );
         });
   }
-   @override
-   void dispose() {
-     _tabController.dispose();
-     super.dispose();
-   }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 }
-
-

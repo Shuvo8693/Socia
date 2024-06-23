@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:socia/features/profile/data/models/user_model.dart';
@@ -8,7 +9,8 @@ class AuthService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   String existMessage = '';
 
-  Future<bool> createCredentials(String email, String password, UserList userModel) async {
+  Future<bool> createCredentials(
+      String email, String password, UserList userModel) async {
     QuerySnapshot result = await _fireStore
         .collection('User')
         .where('email', isEqualTo: email)

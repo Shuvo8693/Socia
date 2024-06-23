@@ -9,10 +9,10 @@ void snackBarMessage(
         ? Colors.redAccent.withOpacity(0.9)
         : Colors.green.withOpacity(0.9),
     shape: const OutlineInputBorder(
-         borderSide: BorderSide.none,
+        borderSide: BorderSide.none,
         borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(8),
-      topRight: Radius.circular(8),
-    )),
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        )),
   ));
 }

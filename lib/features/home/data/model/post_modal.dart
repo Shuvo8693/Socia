@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostList {
@@ -26,7 +24,7 @@ class PostList {
   });
 
   factory PostList.fromFireStore(DocumentSnapshot doc) {
-     Map data= doc.data() as Map;
+    Map data = doc.data() as Map;
     return PostList(
         userName: data['userName'],
         profilePictureURL: data['profilePictureURL'],

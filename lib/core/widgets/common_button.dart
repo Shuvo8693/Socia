@@ -11,15 +11,12 @@ class CommonButton extends StatelessWidget {
   final Function() onPressed;
   final String text;
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SizeConfig.desktopScreen? 45: 36,
+      height: SizeConfig.desktopScreen ? 45 : 36,
       width: 295,
-      child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(text)),
+      child: ElevatedButton(onPressed: onPressed, child: Text(text)),
     );
   }
 }

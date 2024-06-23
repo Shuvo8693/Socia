@@ -11,7 +11,7 @@ class StoryService {
 
   Future<bool> requestToGetStoryImageAndProfile() async {
     final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-   // final String uID = FirebaseAuth.instance.currentUser!.uid;
+    // final String uID = FirebaseAuth.instance.currentUser!.uid;
     try {
       await fireStore
           .collection('Story')
@@ -75,17 +75,20 @@ class StoryService {
               errorMessage = 'Empty Story';
             }
           }).whenComplete(() async {
-            for(var listID in followingList){
-              await fireStore.collection('User').doc(listID).get().then((value) {
-                final userData=  value.data();
-                if(value.exists && userData != null){
-                   userList.add(UserList.fromJson(userData));
-                }else{
+            for (var listID in followingList) {
+              await fireStore
+                  .collection('User')
+                  .doc(listID)
+                  .get()
+                  .then((value) {
+                final userData = value.data();
+                if (value.exists && userData != null) {
+                  userList.add(UserList.fromJson(userData));
+                } else {
                   errorMessage = 'Empty user data';
                 }
               });
             }
-
           });
         } else {
           errorMessage = 'Empty user credential';

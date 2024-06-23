@@ -4,6 +4,7 @@ import 'package:socia/config/theme/app_icons.dart';
 import 'package:socia/core/utility/dummypicturelink.dart';
 import 'package:socia/core/widgets/common_form_field.dart';
 import 'package:socia/features/post/presentation/screen/add_location.dart';
+
 import '../../../../core/widgets/app_bar_title.dart';
 import '../../../../core/widgets/blue_text_button.dart';
 
@@ -61,7 +62,8 @@ class _UploadContentState extends State<UploadContent> {
           ),
           ListTile(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> AddLocation()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddLocation()));
             },
             title: const Text('Add location'),
           ),
@@ -94,20 +96,23 @@ class _UploadContentState extends State<UploadContent> {
                   fontWeight: FontWeight.w400,
                   color: AppColors.alertPostContentColor),
             ),
-            actions:  [
+            actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                const SizedBox(width: 10,),
-                BlueTextButton(
-                    text: 'Edit',
-                    isIconSet: false,
-                    onPressed: (){
-                      Navigator.pop(context);
-                    }),
-                ElevatedButton(onPressed: (){}, child: const Text('Post Now')),
-              ],),
-
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  BlueTextButton(
+                      text: 'Edit',
+                      isIconSet: false,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                  ElevatedButton(
+                      onPressed: () {}, child: const Text('Post Now')),
+                ],
+              ),
             ],
           );
         });

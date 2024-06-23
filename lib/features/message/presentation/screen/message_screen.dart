@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_icons.dart';
 import 'package:socia/core/widgets/common_form_field.dart';
@@ -43,7 +42,6 @@ class _MessageScreenState extends State<MessageScreen> {
     _messageInputTEC.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +118,9 @@ class _MessageScreenState extends State<MessageScreen> {
                   Container(
                     height: double.infinity,
                     width: double.infinity,
-                    color: Theme.of(context).brightness==Brightness.dark? Colors.grey.shade700 :Colors.grey.shade200,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade700
+                        : Colors.grey.shade200,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -131,15 +131,14 @@ class _MessageScreenState extends State<MessageScreen> {
                               shrinkWrap: true,
                               itemCount: _message.length,
                               itemBuilder: (context, index) {
-                                final receiveMsgIndex =
-                                    _message[index];
-                                return ChatBubble(receiveMsgIndex: receiveMsgIndex);
+                                final receiveMsgIndex = _message[index];
+                                return ChatBubble(
+                                    receiveMsgIndex: receiveMsgIndex);
                               }),
                         ),
                       ],
                     ),
                   ),
-                  
                 ],
               ),
             ),
@@ -166,7 +165,7 @@ class _MessageScreenState extends State<MessageScreen> {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child:SvgInkButton(assetPath: AppIcons.send, onTap: () {}),
+          child: SvgInkButton(assetPath: AppIcons.send, onTap: () {}),
         ),
       ],
     );
@@ -182,8 +181,6 @@ class _MessageScreenState extends State<MessageScreen> {
         });
   }
 }
-
-
 
 class ChatBubble extends StatelessWidget {
   const ChatBubble({
@@ -209,7 +206,13 @@ class ChatBubble extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(receiveMsgIndex,style: TextStyle(color: Theme.of(context).brightness==Brightness.dark? Colors.black:Colors.white),),
+                child: Text(
+                  receiveMsgIndex,
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black
+                          : Colors.white),
+                ),
               )),
         ),
       ],

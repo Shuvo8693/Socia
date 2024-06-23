@@ -9,7 +9,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _searchTEC= TextEditingController();
+  final TextEditingController _searchTEC = TextEditingController();
   List<String> imageUrl = [
     'https://media.istockphoto.com/id/1001021150/photo/muslim-man-is-praying-in-mosque.webp?s=1024x1024&w=is&k=20&c=SjMLzeG1LbNne_wYOHM1rKem4K813PIhRg9yO02FTYo=',
     'https://media.istockphoto.com/id/1149556870/photo/muslim-man-is-praying-in-mosque.webp?s=1024x1024&w=is&k=20&c=J-6dfumiT0-kV4Enmn8yNt_Ya6vVSveLB9STauDrCjo=',
@@ -26,32 +26,44 @@ class _SearchScreenState extends State<SearchScreen> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.only(top: 16,left: 12,right: 12,),
+            padding: const EdgeInsets.only(
+              top: 16,
+              left: 12,
+              right: 12,
+            ),
             child: Column(
               children: [
-              FormTextField(
+                FormTextField(
                   controller: _searchTEC,
                   prefixIcon: const Icon(Icons.search_outlined),
                   hintText: 'Search',
-                boxWidth: 343,
-                boxHeight: 36,
+                  boxWidth: 343,
+                  boxHeight: 36,
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 16,left: 15,right: 15),
+                    padding:
+                        const EdgeInsets.only(top: 16, left: 15, right: 15),
                     child: GridView.builder(
-                      itemCount: imageUrl.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,crossAxisSpacing: 3,mainAxisSpacing: 3),
-                        itemBuilder: (context,index){
-                          final imageUrlIndex= imageUrl.elementAt(index);
+                        itemCount: imageUrl.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 3,
+                                mainAxisSpacing: 3),
+                        itemBuilder: (context, index) {
+                          final imageUrlIndex = imageUrl.elementAt(index);
                           return ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                              child: Image.network(imageUrlIndex,fit: BoxFit.cover,));
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                imageUrlIndex,
+                                fit: BoxFit.cover,
+                              ));
                         }),
                   ),
                 )
-            ],),
+              ],
+            ),
           ),
         ),
       ),
