@@ -12,7 +12,7 @@ class AddStoryService {
 
   Future<bool> requestToUploadImageStory(XFile image) async {
     String constUid = 'GCl5IWWmviWgHrBeekaHtd1gJ0h1';
-    String uID = FirebaseAuth.instance.currentUser!.uid;
+   // String uID = FirebaseAuth.instance.currentUser!.uid;
     Uint8List imageData = await image.readAsBytes();
 
     try {

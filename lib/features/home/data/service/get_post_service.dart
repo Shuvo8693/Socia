@@ -9,7 +9,7 @@ class GetPostService {
 
   Future<bool> postGetRequest() async {
     final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-     String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+    // String currentUserId = FirebaseAuth.instance.currentUser!.uid;
 
     try {
       DocumentSnapshot document = await fireStore

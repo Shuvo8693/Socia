@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:socia/features/profile/data/models/user_model.dart';
 
 class StoryService {
@@ -12,7 +11,7 @@ class StoryService {
 
   Future<bool> requestToGetStoryImageAndProfile() async {
     final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    final String uID = FirebaseAuth.instance.currentUser!.uid;
+   // final String uID = FirebaseAuth.instance.currentUser!.uid;
     try {
       await fireStore
           .collection('Story')
@@ -51,7 +50,7 @@ class StoryService {
 
   Future<bool> requestToGetStoryList() async {
     final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    final String uID = FirebaseAuth.instance.currentUser!.uid;
+    //final String uID = FirebaseAuth.instance.currentUser!.uid;
     try {
       await fireStore
           .collection('User')
@@ -98,6 +97,4 @@ class StoryService {
       return false;
     }
   }
-
-  Future<void> requestToPostStory() async {}
 }

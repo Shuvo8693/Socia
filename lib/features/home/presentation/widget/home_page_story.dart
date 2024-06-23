@@ -37,7 +37,7 @@ class _HomePageStoryState extends State<HomePageStory> {
                 text: state.userList.first.userName,
                 image: state.userList.first.profilePictureURL,
               );
-            } else {
+            }else{
               return const StoryCard(
                   imageIndex: '', shouldUseAddIcon: false, text: '', image: '');
             }
@@ -92,7 +92,7 @@ class _HomePageStoryState extends State<HomePageStory> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
+      if (mounted == true && _imageFile != null) {
         context.read<StoryBloc>().add(AddImageStoryEvent(
             image: _imageFile ?? XFile(''), context: context));
       }

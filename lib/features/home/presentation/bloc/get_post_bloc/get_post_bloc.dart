@@ -14,11 +14,12 @@ class GetPostBloc extends Bloc<GetPostEvent, GetPostState> {
   final GetPostService getPostService;
 
   onLoadedGetPostEvent(event, emit) async {
+
     try {
       emit(LoadingGetPostState());
-      await getPostService.postGetRequest().then((bool value) {
+      await getPostService.postGetRequest().then((bool value)async {
         if (value) {
-          emit(LoadedGetPostState(postListModal: getPostService.postListModal));
+         await emit(LoadedGetPostState(postListModal: getPostService.postListModal));
         } else {
           emit(FailureGetPostState(getPostService.errorMessage));
           log(getPostService.errorMessage);
