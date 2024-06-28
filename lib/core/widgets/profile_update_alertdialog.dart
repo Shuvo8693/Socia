@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/theme/app_color.dart';
 import '../../config/theme/app_icons.dart';
+import '../../features/profile/presentation/screen/profile_screen.dart';
 import 'button_text.dart';
 
 class ProfileUpdateDialog extends StatelessWidget {
@@ -48,7 +49,7 @@ class ProfileUpdateDialog extends StatelessWidget {
                 width: 224,
                 child: ButtonText(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProfileScreen()));
                   },
                   textA: 'Skip',
                 ),

@@ -5,7 +5,10 @@ import 'app_color.dart';
 ThemeData lightTheme() {
   return ThemeData(
       colorScheme: lightColorScheme,
+      appBarTheme: AppBarTheme(surfaceTintColor: Colors.grey.shade600),
       iconTheme: IconThemeData(color: lightColorScheme.onPrimary),
+      textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: Colors.blueAccent.shade100, selectionColor: Colors.blueAccent.shade100),
       inputDecorationTheme: InputDecorationTheme(
         border: buildOutlineInputBorder(),
         focusedBorder: buildOutlineInputBorder(),

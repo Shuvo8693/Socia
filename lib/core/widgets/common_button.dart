@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_sizes.dart';
 
 class CommonButton extends StatelessWidget {
-  const CommonButton({
+   const CommonButton({
     super.key,
     required this.onPressed,
     required this.text,

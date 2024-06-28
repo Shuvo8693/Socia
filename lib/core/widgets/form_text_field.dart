@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_color.dart';
 
@@ -5,7 +6,7 @@ class FormTextField extends StatelessWidget {
   const FormTextField({
     super.key,
     required this.controller,
-    required this.prefixIcon,
+    this.prefixIcon,
     required this.hintText,
     this.suffixIcon,
     this.obscureText,
@@ -13,10 +14,12 @@ class FormTextField extends StatelessWidget {
     this.boxHeight,
     this.boxWidth,
     this.borderSideColor,
+    this.maxLine,
+    this.contentPadding,
   });
 
   final TextEditingController controller;
-  final Icon prefixIcon;
+  final Icon? prefixIcon;
   final IconButton? suffixIcon;
   final String hintText;
   final bool? obscureText;
@@ -24,6 +27,8 @@ class FormTextField extends StatelessWidget {
   final double? boxHeight;
   final double? boxWidth;
   final Color? borderSideColor;
+  final int? maxLine;
+  final double? contentPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +38,28 @@ class FormTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-            errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide:
-                    const BorderSide(width: 1, color: Color(0xFFF97066))),
-            enabledBorder: buildOutlineInputBorder(),
-            focusedBorder: buildOutlineInputBorder(),
-            contentPadding: const EdgeInsets.all(3),
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            hintText: hintText,
-            errorMaxLines: 2,
-            errorStyle: const TextStyle(fontSize: 10),
-            hintStyle: const TextStyle(color: Colors.grey)),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: const BorderSide(width: 1, color: Color(0xFFF97066))),
+          enabledBorder: buildOutlineInputBorder(),
+          focusedBorder: buildOutlineInputBorder(),
+          contentPadding: contentPadding != null
+              ? EdgeInsets.only(left: contentPadding!)
+              : const EdgeInsets.all(3),
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          hintText: hintText,
+          errorMaxLines: 2,
+          errorStyle: const TextStyle(fontSize: 10),
+          hintStyle: const TextStyle(
+            color: Colors.grey,
+          ),
+          alignLabelWithHint: true,
+        ),
+        cursorColor: Colors.black54,
         obscureText: obscureText ?? false,
         validator: validator,
+        maxLines: maxLine ?? 1,
       ),
     );
   }

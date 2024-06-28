@@ -72,7 +72,7 @@ class StoryCard extends StatelessWidget {
             child: CircleAvatar(
               backgroundImage: image!.isNotEmpty
                   ? NetworkImage(image!)
-                  : AssetImage(AssetImg.personImg) as ImageProvider,
+                  : AssetImage(AssetImg.noPersonImg) as ImageProvider,
               backgroundColor: Colors.grey,
             ),
           ),
