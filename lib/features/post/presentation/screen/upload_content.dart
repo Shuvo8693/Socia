@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_color.dart';
 import 'package:socia/config/theme/app_icons.dart';
 import 'package:socia/core/utility/dummypicturelink.dart';
+import 'package:socia/core/widgets/app_bar_title.dart';
+import 'package:socia/core/widgets/button/blue_text_button.dart';
 import 'package:socia/core/widgets/common_form_field.dart';
 import 'package:socia/features/post/presentation/screen/add_location.dart';
-
-import '../../../../core/widgets/app_bar_title.dart';
-import '../../../../core/widgets/blue_text_button.dart';
 
 class UploadContent extends StatefulWidget {
   const UploadContent({super.key});
@@ -57,9 +56,7 @@ class _UploadContentState extends State<UploadContent> {
               ],
             ),
           ),
-          const Divider(
-            height: 2,
-          ),
+          const Divider(height: 2),
           ListTile(
             onTap: () {
               Navigator.push(context,
@@ -67,9 +64,7 @@ class _UploadContentState extends State<UploadContent> {
             },
             title: const Text('Add location'),
           ),
-          const Divider(
-            height: 2,
-          ),
+          const Divider(height: 2),
         ],
       ),
     );
@@ -77,44 +72,44 @@ class _UploadContentState extends State<UploadContent> {
 
   void alertPost() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            icon: Image.asset(
-              AppIcons.user,
-              height: 34,
-              width: 34,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          icon: Image.asset(
+            AppIcons.user,
+            height: 34,
+            width: 34,
+          ),
+          title: const Text(
+            'Do you want to post ?',
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+          ),
+          content: const Text(
+            'Your post will share by clicking yes, if need any change click on edit.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontWeight: FontWeight.w400,
+                color: AppColors.alertPostContentColor),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 10,
+                ),
+                BlueTextButton(
+                    text: 'Edit',
+                    isIconSet: false,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+                ElevatedButton(onPressed: () {}, child: const Text('Post Now')),
+              ],
             ),
-            title: const Text(
-              'Do you want to post ?',
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-            ),
-            content: const Text(
-              'Your post will share by clicking yes, if need any change click on edit.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.alertPostContentColor),
-            ),
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  BlueTextButton(
-                      text: 'Edit',
-                      isIconSet: false,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }),
-                  ElevatedButton(
-                      onPressed: () {}, child: const Text('Post Now')),
-                ],
-              ),
-            ],
-          );
-        });
+          ],
+        );
+      },
+    );
   }
 }

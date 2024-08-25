@@ -1,10 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socia/core/routing/router.dart';
 import 'package:socia/core/widgets/BottomNavBarScreen.dart';
+import 'package:socia/core/widgets/splash_screen.dart';
 import 'package:socia/features/authentication/data/service/auth_login_service.dart';
 import 'package:socia/features/authentication/data/service/auth_service.dart';
 import 'package:socia/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:socia/features/authentication/presentation/screen/login_screen.dart';
 import 'package:socia/features/home/data/service/add_story_service.dart';
 import 'package:socia/features/home/data/service/get_post_service.dart';
 import 'package:socia/features/home/data/service/story_service.dart';
@@ -45,13 +48,15 @@ class SocIa extends StatelessWidget {
         BlocProvider(
             create: (context) => UpdateProfileBloc(updateProfileService: UpdateProfileService())),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerDelegate: Routers.router.routerDelegate,
+        routeInformationParser: Routers.router.routeInformationParser,
+        routeInformationProvider: Routers.router.routeInformationProvider,
         debugShowCheckedModeBanner: false,
         title: 'SocIa',
         theme: lightTheme(),
         darkTheme: darkTheme(),
         themeMode: ThemeMode.system,
-        home: const BottomNavBarScreen(),
       ),
     );
   }

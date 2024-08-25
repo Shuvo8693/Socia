@@ -5,7 +5,7 @@ export 'package:socia/config/theme/app_icons.dart';
 export 'package:socia/core/utility/dummypicturelink.dart';
 export 'package:socia/core/utility/logo.dart';
 export 'package:socia/core/widgets/snacbar.dart';
-export 'package:socia/core/widgets/svg_ink_button.dart';
+
 export 'package:socia/features/home/data/service/get_post_service.dart';
 export 'package:socia/features/home/presentation/bloc/get_post_bloc/get_post_bloc.dart';
 export 'package:socia/features/home/presentation/bloc/get_post_bloc/get_post_state.dart';
@@ -16,4 +16,3 @@ export 'package:socia/features/notifications/presentation/screen/notification_sc
 export '../../core/widgets/common_form_field.dart';
 export '../../core/widgets/home_screen_stroycard.dart';
 export '../../core/widgets/profile_update_alertdialog.dart';
-export '../../core/widgets/svg_fab_button.dart';

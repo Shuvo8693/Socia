@@ -18,7 +18,7 @@ class GetPostBloc extends Bloc<GetPostEvent, GetPostState> {
   onLoadedGetPostEvent(event, emit) async {
     try {
       emit(LoadingGetPostState());
-      await getPostService.postGetRequest().then((bool value) async {
+      await getPostService.fetchPost().then((bool value) async {
         if (value) {
           await emit(
               LoadedGetPostState(postListModal: getPostService.postListModal));

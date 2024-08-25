@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_color.dart';
 import 'package:socia/core/utility/dummypicturelink.dart';
 import 'package:socia/core/widgets/app_bar_title.dart';
-import 'package:socia/core/widgets/back_button_svg.dart';
+import 'package:socia/core/widgets/button/back_button_svg.dart';
+import 'package:socia/core/widgets/button/fo_ufmsg_button.dart';
+import 'package:socia/core/widgets/button/follower_followingButton.dart';
 import 'package:socia/core/widgets/button_text.dart';
-import 'package:socia/core/widgets/fo_ufmsg_button.dart';
+import 'package:socia/core/widgets/form_text_field.dart';
 
-import '../../../../core/widgets/follower_followingButton.dart';
-import '../../../../core/widgets/form_text_field.dart';
+
 
 class FollowUnfollowScreen extends StatefulWidget {
   const FollowUnfollowScreen({super.key});

@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:typed_data';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:socia/features/profile/data/models/firestore_update_result.dart';
 import 'package:socia/features/profile/data/models/update_user_model.dart';

@@ -8,15 +8,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:socia/config/theme/app_sizes.dart';
 import 'package:socia/core/utility/assets_image.dart';
 import 'package:socia/core/widgets/app_bar_title.dart';
-import 'package:socia/core/widgets/common_button.dart';
+import 'package:socia/core/widgets/button/back_button_svg.dart';
+import 'package:socia/core/widgets/button/common_button.dart';
 import 'package:socia/core/widgets/form_text_field.dart';
 import 'package:socia/features/profile/data/models/update_user_model.dart';
 import 'package:socia/features/profile/presentation/bloc/update_profile_bloc.dart';
 import 'package:socia/features/profile/presentation/bloc/update_profile_event.dart';
 import 'package:socia/features/profile/presentation/bloc/update_profile_state.dart';
+import 'package:socia/features/profile/presentation/widget/profile_image_selector.dart';
 
-import '../../../../core/widgets/back_button_svg.dart';
-import '../widget/profile_image_selector.dart';
+
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});

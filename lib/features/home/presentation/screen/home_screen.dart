@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:socia/features/home/presentation/bloc/get_post_bloc/get_post_event.dart';
+import 'package:socia/features/home/presentation/bloc/story_list_bloc/story_list_bloc.dart';
+import 'package:socia/features/home/presentation/bloc/story_list_bloc/story_list_event.dart';
+import 'package:socia/features/home/presentation/widget/home_page_appbar.dart';
+import 'package:socia/features/home/presentation/widget/home_page_story.dart';
+import 'package:socia/features/home/presentation/widget/home_page_timeline_post.dart';
+import 'package:socia/features/home/presentation/widget/homepage_alertdialog.dart';
 import 'package:socia/home_screen_imports.dart';
-import '../bloc/get_post_bloc/get_post_event.dart';
-import '../bloc/story_list_bloc/story_list_bloc.dart';
-import '../bloc/story_list_bloc/story_list_event.dart';
-import '../widget/home_page_appbar.dart';
-import '../widget/home_page_story.dart';
-import '../widget/home_page_timeline_post.dart';
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.currentNavigatorIndex});
@@ -80,18 +83,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Container(
                                 width: 365,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .shadow,
-                                          blurRadius: 1.0,
-                                          spreadRadius: 0.0,
-                                          offset: const Offset(1, 2))
-                                    ]),
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Theme.of(context).colorScheme.surface,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .shadow,
+                                        blurRadius: 1.0,
+                                        spreadRadius: 0.0,
+                                        offset: const Offset(1, 2))
+                                  ],
+                                ),
                                 child: TimeLinePostElement(
                                     postListIndex: postListIndex,
                                     commentsTEC: _commentsTEC),
@@ -102,13 +105,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                     return Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('Something went wrong...'),
-                        errorFunction(state)
-                      ],
-                    ));
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Something went wrong...'),
+                          errorFunction(state)
+                        ],
+                      ),
+                    );
                   },
                 ),
               ),
@@ -128,74 +132,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void uploadImage() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Column(
-              children: [
-                const Text('Select From',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          SvgInkButton(
-                            assetPath: AppIcons.camera,
-                            isBGSurfaceWhite: true,
-                            onTap: () async {
-                              XFile? pickCameraImage = await _imagePicker
-                                  .pickImage(source: ImageSource.camera);
-                              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                                if(mounted){
-                                  Navigator.pop(context);
-                                }
-                              });
-                              },
-                            pictureHeight: 88,
-                            pictureWidth: 88,
-                          ),
-                          const Text('Camera',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w700)),
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Column(
-                        children: [
-                          SvgInkButton(
-                            assetPath: AppIcons.gallery,
-                            isBGSurfaceWhite: true,
-                            onTap: () async {
-                              XFile? pickGalleryImage = await _imagePicker
-                                  .pickImage(source: ImageSource.gallery);
-                              Navigator.pop(context);
-                            },
-                            pictureHeight: 88,
-                            pictureWidth: 88,
-                          ),
-                          const Text(
-                            'Gallery',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w700),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
+      context: context,
+      builder: (context) {
+        return HomePageAlertDialog(imagePicker: _imagePicker, mounted: mounted);
+      },
+    );
   }
-
-
 
   @override
   void dispose() {
@@ -203,5 +145,3 @@ class _HomeScreenState extends State<HomeScreen> {
     _commentsTEC.dispose();
   }
 }
-
-

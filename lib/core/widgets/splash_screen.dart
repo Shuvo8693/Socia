@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_sizes.dart';
+import 'package:socia/core/routing/router.dart';
 import 'package:socia/core/utility/logo.dart';
 
+import 'button/common_button.dart';
 import 'button_text.dart';
-import 'common_button.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,14 +39,22 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 48,
               ),
               CommonButton(
-                onPressed: () {},
+                onPressed: () {
+                 return Routers.pushNamed(
+                      routeName: Routers.logInScreen,
+                      queryParam: {'isLogin': false});
+                },
                 text: 'Create Account',
               ),
               const SizedBox(
                 height: 12,
               ),
               ButtonText(
-                onPressed: () {},
+                onPressed: () {
+                 return Routers.pushNamed(
+                      routeName: Routers.logInScreen,
+                      queryParam: {'isLogin': true});
+                },
                 textA: 'Log In',
                 textB: '  ˅',
               ),

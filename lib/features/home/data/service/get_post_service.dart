@@ -7,7 +7,7 @@ class GetPostService {
   List<PostList> postListModal = [];
   String errorMessage = '';
 
-  Future<bool> postGetRequest() async {
+  Future<bool> fetchPost() async {
     final FirebaseFirestore fireStore = FirebaseFirestore.instance;
     // String currentUserId = FirebaseAuth.instance.currentUser!.uid;
 

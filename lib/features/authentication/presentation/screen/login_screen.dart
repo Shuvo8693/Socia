@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socia/config/theme/app_sizes.dart';
-import 'package:socia/core/widgets/back_button_svg.dart';
-import 'package:socia/core/widgets/common_button.dart';
+import 'package:socia/core/widgets/button/back_button_svg.dart';
+import 'package:socia/core/widgets/button/common_button.dart';
+import 'package:socia/core/widgets/form_text_field.dart';
 import 'package:socia/features/authentication/presentation/bloc/auth_state.dart';
 import 'package:socia/features/authentication/widget/validator.dart';
 import 'package:socia/features/profile/data/models/user_model.dart';
 
-import '../../../../core/widgets/form_text_field.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 
@@ -70,7 +70,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         'Enter Your Email & Password',
@@ -123,10 +123,9 @@ class _LogInScreenState extends State<LogInScreen> {
                               _toggleObscured();
                             },
                             icon: _obscureText
-                                ? const Icon(Icons.remove_red_eye_rounded)
-                                : Icon(
-                                    Icons.remove_red_eye_outlined,
-                                    color: Colors.redAccent.shade100,
+                                ? const Icon(Icons.visibility_off_outlined)
+                                : const Icon(
+                                    Icons.visibility_outlined,
                                   )),
                         obscureText: _obscureText,
                         validator: passWordValidator,

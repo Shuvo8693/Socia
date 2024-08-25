@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_icons.dart';
+import 'package:socia/core/utility/dummypicturelink.dart';
+import 'package:socia/core/widgets/button/back_button_svg.dart';
+import 'package:socia/core/widgets/button/svg_ink_button.dart';
 import 'package:socia/core/widgets/common_form_field.dart';
-import 'package:socia/core/widgets/svg_ink_button.dart';
-
-import '../../../../core/utility/dummypicturelink.dart';
-import '../../../../core/widgets/back_button_svg.dart';
-import '../../../../core/widgets/profile_update_alertdialog.dart';
+import 'package:socia/core/widgets/profile_update_alertdialog.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -173,12 +172,13 @@ class _MessageScreenState extends State<MessageScreen> {
 
   void profileUpdateAlert() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return ProfileUpdateDialog(
-            onPressed: () {},
-          );
-        });
+      context: context,
+      builder: (context) {
+        return ProfileUpdateDialog(
+          onPressed: () {},
+        );
+      },
+    );
   }
 }
 
@@ -197,23 +197,24 @@ class ChatBubble extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.28),
-                    topRight: Radius.circular(30.28),
-                    bottomRight: Radius.circular(30.28)),
-                color: Colors.white,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.28),
+                  topRight: Radius.circular(30.28),
+                  bottomRight: Radius.circular(30.28)),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                receiveMsgIndex,
+                style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black
+                        : Colors.white),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  receiveMsgIndex,
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.black
-                          : Colors.white),
-                ),
-              )),
+            ),
+          ),
         ),
       ],
     );

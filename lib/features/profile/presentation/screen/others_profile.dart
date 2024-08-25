@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:socia/config/theme/app_icons.dart';
+import 'package:socia/core/utility/dummypicturelink.dart';
 import 'package:socia/core/widgets/app_bar_title.dart';
-import 'package:socia/core/widgets/back_button_svg.dart';
-import 'package:socia/core/widgets/fo_ufmsg_button.dart';
-
-import '../../../../config/theme/app_icons.dart';
-import '../../../../core/utility/dummypicturelink.dart';
-import '../../../../core/widgets/view_tile_profile_screen.dart';
+import 'package:socia/core/widgets/button/back_button_svg.dart';
+import 'package:socia/core/widgets/button/fo_ufmsg_button.dart';
+import 'package:socia/core/widgets/view_tile_profile_screen.dart';
+import 'package:socia/features/profile/presentation/widget/others_profile_view/otherprofile_gridview.dart';
+import 'package:socia/features/profile/presentation/widget/others_profile_view/otherprofile_listview.dart';
 
 class OtherProfileScreen extends StatefulWidget {
   const OtherProfileScreen({super.key});
@@ -171,65 +172,10 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
               height: 8,
             ),
             _isViewNavigateGrid
-                ? Expanded(
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        itemCount: imageUrl.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5),
-                        itemBuilder: (context, index) {
-                          final imageUelIndex = imageUrl[index];
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              imageUelIndex,
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        }),
-                  )
+                ? OtherProfileGridView(imageUrl: imageUrl)
                 : _isViewNavigateList
-                    ? Expanded(
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: imageUrl.length,
-                            itemBuilder: (context, index) {
-                              final imageUelIndex = imageUrl[index];
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    imageUelIndex,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              );
-                            }),
-                      )
-                    : Expanded(
-                        child: GridView.builder(
-                            shrinkWrap: true,
-                            itemCount: imageUrl.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    crossAxisSpacing: 5,
-                                    mainAxisSpacing: 5),
-                            itemBuilder: (context, index) {
-                              final imageUelIndex = imageUrl[index];
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  imageUelIndex,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            }),
-                      ),
+                    ? OtherProfileListView(imageUrl: imageUrl)
+                    : OtherProfileGridView(imageUrl: imageUrl),
           ],
         ),
       ),
@@ -238,19 +184,24 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
 
   Widget stateItem(String count, String label) {
     return RichText(
-        text: TextSpan(children: [
-      TextSpan(
-          text: count,
-          style: TextStyle(
-              fontSize: 13,
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontWeight: FontWeight.w500)),
-      const TextSpan(text: '  '),
-      TextSpan(
-          text: label,
-          style: const TextStyle(
-              fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w400)),
-    ]));
+      text: TextSpan(
+        children: [
+          TextSpan(
+              text: count,
+              style: TextStyle(
+                  fontSize: 13,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.w500)),
+          const TextSpan(text: '  '),
+          TextSpan(
+              text: label,
+              style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w400)),
+        ],
+      ),
+    );
   }
 
   bol() {

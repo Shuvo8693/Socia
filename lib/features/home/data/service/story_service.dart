@@ -15,7 +15,7 @@ class StoryService {
     try {
       await fireStore
           .collection('Story')
-          .where('userId', isEqualTo: 'GCl5IWWmviWgHrBeekaHtd1gJ0h1')
+          .where('userId', isEqualTo: '0JSumE4bmSTZk45canRG3KRujmN2')
           .get()
           .then((QuerySnapshot<Map<String, dynamic>> snapshot) async {
         if (snapshot.docs.isNotEmpty) {

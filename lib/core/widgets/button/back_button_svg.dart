@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:socia/core/widgets/svg_ink_button.dart';
+import 'package:socia/config/theme/app_icons.dart';
+import 'package:socia/core/widgets/button/svg_ink_button.dart';
 
-import '../../config/theme/app_icons.dart';
 
 class BackButtonSvg extends StatelessWidget {
   const BackButtonSvg({

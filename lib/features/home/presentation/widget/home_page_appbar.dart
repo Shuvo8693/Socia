@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:socia/features/profile/presentation/screen/profile_screen.dart';
+import 'package:socia/config/theme/app_icons.dart';
+import 'package:socia/core/utility/dummypicturelink.dart';
+import 'package:socia/core/utility/logo.dart';
+import 'package:socia/core/widgets/button/svg_fab_button.dart';
+import 'package:socia/core/widgets/profile_update_alertdialog.dart';
+import 'package:socia/features/message/presentation/screen/message_screen.dart';
+import 'package:socia/features/notifications/presentation/screen/notification_screen.dart';
 import 'package:socia/features/profile/presentation/screen/update_profile_screen.dart';
-import '../../../../config/theme/app_icons.dart';
-import '../../../../core/utility/dummypicturelink.dart';
-import '../../../../core/utility/logo.dart';
-import '../../../../core/widgets/profile_update_alertdialog.dart';
-import '../../../../core/widgets/svg_fab_button.dart';
-import '../../../message/presentation/screen/message_screen.dart';
-import '../../../notifications/presentation/screen/notification_screen.dart';
 
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {

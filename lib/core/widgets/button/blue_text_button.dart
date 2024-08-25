@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../config/theme/app_color.dart';
-import '../../config/theme/app_icons.dart';
+import '../../../config/theme/app_color.dart';
+import '../../../config/theme/app_icons.dart';
 
 class BlueTextButton extends StatelessWidget {
   const BlueTextButton({
