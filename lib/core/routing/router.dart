@@ -4,7 +4,6 @@ import 'package:socia/core/widgets/BottomNavBarScreen.dart';
 import 'package:socia/core/widgets/splash_screen.dart';
 import 'package:socia/features/authentication/presentation/screen/login_screen.dart';
 
-final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
 abstract class Routers {
   static const String splashScreen = 'splash';
@@ -78,6 +77,14 @@ abstract class Routers {
         routeName,
         pathParameters: pathParam ?? {},
         queryParameters: queryParam ?? {},
+        extra: extra);
+  }
+
+  static Future<Object?> pushReplacement(
+      {required String routeName,
+      Object? extra}) async {
+    return await GoRouter.of(globalNavigatorKey!).pushReplacement(
+        routeName,
         extra: extra);
   }
 

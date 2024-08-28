@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserList {
+class UserItem {
   String userName;
   String profilePictureURL;
   String email;
@@ -11,7 +11,7 @@ class UserList {
   Timestamp createdAt;
   Timestamp updatedAt;
 
-  UserList(
+  UserItem(
       {required this.bio,
       required this.displayName,
       required this.email,
@@ -22,8 +22,8 @@ class UserList {
       required this.createdAt,
       required this.updatedAt});
 
-  factory UserList.fromJson(Map<String, dynamic> data) {
-    return UserList(
+  factory UserItem.fromJson(Map<String, dynamic> data) {
+    return UserItem(
       bio: data['Bio'] ?? '',
       displayName: data['displayName'] ?? '',
       email: data['email'] ?? '',

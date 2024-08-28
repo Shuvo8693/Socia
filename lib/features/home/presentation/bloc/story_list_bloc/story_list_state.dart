@@ -12,7 +12,7 @@ class InitializeListStoryState extends StoryListState {}
 class LoadingListStoryState extends StoryListState {}
 
 class LoadStoryListState extends StoryListState {
-  final List<UserList> userList;
+  final List<UserItem> userList;
   final List<String> imageListing;
 
   LoadStoryListState({required this.imageListing, required this.userList});

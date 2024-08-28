@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_color.dart';
+import 'package:socia/core/extention/size_extention.dart';
 
 class FormTextField extends StatelessWidget {
   const FormTextField({
@@ -33,8 +34,8 @@ class FormTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: boxHeight ?? 36,
-      width: boxWidth ?? 295,
+      height: boxHeight ?? 36.rH,
+      width: boxWidth ?? 295.rW,
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(

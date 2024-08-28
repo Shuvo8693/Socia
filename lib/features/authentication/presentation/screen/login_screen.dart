@@ -1,17 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socia/config/theme/app_sizes.dart';
+import 'package:socia/core/extention/size_extention.dart';
 import 'package:socia/core/widgets/button/back_button_svg.dart';
-import 'package:socia/core/widgets/button/common_button.dart';
 import 'package:socia/core/widgets/form_text_field.dart';
+import 'package:socia/core/widgets/spacing/spacing.dart';
+import 'package:socia/features/authentication/data/service/auth_login_service.dart';
+import 'package:socia/features/authentication/data/service/auth_register_service.dart';
+import 'package:socia/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:socia/features/authentication/presentation/bloc/auth_state.dart';
+import 'package:socia/features/authentication/widget/activity_indicator.dart';
+import 'package:socia/features/authentication/widget/check_box.dart';
+import 'package:socia/features/authentication/widget/login_section.dart';
+import 'package:socia/features/authentication/widget/register_section.dart';
 import 'package:socia/features/authentication/widget/validator.dart';
-import 'package:socia/features/profile/data/models/user_model.dart';
-
-import '../bloc/auth_bloc.dart';
-import '../bloc/auth_event.dart';
+import 'package:socia/injection_container.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key, required this.isLogin});
@@ -44,16 +46,9 @@ class _LogInScreenState extends State<LogInScreen> {
     });
   }
 
-  void _textFieldHeight() {
-    _isTextFieldHeight = true;
-    setState(() {});
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    SizeConfig.init(context);
-  }
+  final AuthBloc _authBloc = AuthBloc(
+      authRegisterService: di<AuthRegisterService>(),
+      authLogInService: di<AuthLogInService>());
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +61,7 @@ class _LogInScreenState extends State<LogInScreen> {
           Center(
             child: SingleChildScrollView(
               child: SizedBox(
-                width: 295,
+                width: 295.rW,
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -80,9 +75,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             .headlineMedium!
                             .copyWith(fontWeight: FontWeight.w400),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      verticalSpace(20.rH),
                       const Padding(
                         padding: EdgeInsets.only(bottom: 8),
                         child: Row(
@@ -93,7 +86,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                       ),
                       FormTextField(
-                        boxHeight: _isTextFieldHeight ? 60 : null,
+                        boxHeight: _isTextFieldHeight ? 80.rH : 50.rH,
                         controller: _emailTEC,
                         prefixIcon: const Icon(Icons.email_outlined),
                         hintText: 'Input email',
@@ -101,12 +94,10 @@ class _LogInScreenState extends State<LogInScreen> {
                         obscureText: false,
                         validator: emailValidator,
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 8),
-                        child: Row(
+                      verticalSpace(10.rH),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8.rH),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text('Password', textAlign: TextAlign.start),
@@ -114,103 +105,63 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                       ),
                       FormTextField(
-                        boxHeight: _isTextFieldHeight ? 72 : null,
+                        boxHeight: _isTextFieldHeight ? 95.rH : 50.rH,
                         controller: _passwordTEC,
                         prefixIcon: const Icon(Icons.lock_outline_rounded),
                         hintText: 'Input password',
                         suffixIcon: IconButton(
-                            onPressed: () {
-                              _toggleObscured();
-                            },
-                            icon: _obscureText
-                                ? const Icon(Icons.visibility_off_outlined)
-                                : const Icon(
-                                    Icons.visibility_outlined,
-                                  )),
+                          onPressed: () {
+                            _toggleObscured();
+                          },
+                          icon: _obscureText
+                              ? const Icon(Icons.visibility_off_outlined)
+                              : const Icon(Icons.visibility_outlined),
+                        ),
                         obscureText: _obscureText,
                         validator: passWordValidator,
                       ),
-                      const SizedBox(
-                        height: 1,
-                      ),
+                      verticalSpace(1.rH),
                       widget.isLogin
-                          ? const SizedBox(
-                              height: 10,
-                            )
-                          : Row(
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      _toggleChecked();
-                                    },
-                                    icon: _check
-                                        ? const Icon(
-                                            Icons.check_box,
-                                            color: Color(0xFF8FAEFF),
-                                          )
-                                        : const Icon(
-                                            Icons.check_box_outline_blank,
-                                          )),
-                                const Text('Save Password')
-                              ],
+                          ? verticalSpace(10.rH)
+                          : CheckBox(
+                              check: _check,
+                              onPressed: () {
+                                _toggleChecked();
+                              },
                             ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      BlocBuilder<AuthBloc, AuthState>(
-                        builder: (BuildContext context, state) {
-                          if (state is AuthLoadingState) {
-                            WidgetsBinding.instance
-                                .addPostFrameCallback((timeStamp) {
-                              _activityBar = state.loadingBar;
-                              setState(() {});
-                            });
-                          } else if (state is AuthFailureState) {
-                            WidgetsBinding.instance
-                                .addPostFrameCallback((timeStamp) {
-                              if (mounted) {
-                                _activityBar = state.loadingBar;
-                                setState(() {});
-                              }
-                            });
-                          }
-                          return widget.isLogin
-                              ? CommonButton(
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      context.read<AuthBloc>().add(
-                                          AuthLoginEvent(
-                                              email: _emailTEC.text,
-                                              password: _passwordTEC.text,
-                                              context: context));
-                                    } else {
-                                      return _textFieldHeight();
-                                    }
-                                  },
-                                  text: 'Log in')
-                              : CommonButton(
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      context.read<AuthBloc>().add(
-                                          AuthRegisteredEvent(context,
-                                              email: _emailTEC.text,
-                                              password: _passwordTEC.text,
-                                              userModel: UserList(
-                                                  bio: '',
-                                                  displayName: '',
-                                                  email: _emailTEC.text,
-                                                  profilePictureURL: '',
-                                                  userName: '',
-                                                  follower: [],
-                                                  following: [],
-                                                  createdAt: Timestamp.now(),
-                                                  updatedAt: Timestamp.now())));
-                                    } else {
-                                      return _textFieldHeight();
-                                    }
-                                  },
-                                  text: 'Register');
-                        },
+                      verticalSpace(16.rH),
+                      BlocProvider(
+                        create: (context) => _authBloc,
+                        child: BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            if (state is AuthLoadingState) {
+                              _buildLoading(state) ;
+                            } else if (state is AuthFailureState) {
+                              _buildAuthFailureLoading(state);
+                            }
+                            return widget.isLogin
+                                ? LogInSection(
+                                    formKey: _formKey,
+                                    emailTEC: _emailTEC,
+                                    passwordTEC: _passwordTEC,
+                                    isFieldHeight: (bool value) {
+                                      setState(() {
+                                        _isTextFieldHeight = value;
+                                      });
+                                    },
+                                  )
+                                : RegisterSection(
+                                    formKey: _formKey,
+                                    emailTEC: _emailTEC,
+                                    passwordTEC: _passwordTEC,
+                                    isFieldHeight: (bool value) {
+                                      setState(() {
+                                        _isTextFieldHeight = value;
+                                      });
+                                    },
+                                  );
+                          },
+                        ),
                       )
                     ],
                   ),
@@ -219,22 +170,30 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
           ),
           _activityBar
-              ? Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.black.withOpacity(0.8)
-                        : Colors.white70,
-                    child: CupertinoActivityIndicator(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      radius: 32,
-                    ),
-                  ),
-                )
+              ? const ActivityIndicatorContainer()
               : const SizedBox.shrink(),
         ],
       ),
+    );
+  }
+
+  _buildLoading(AuthLoadingState state) {
+    return WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (mounted) {
+        _activityBar = state.loadingBar;
+        setState(() {});
+      }
+    });
+  }
+
+  _buildAuthFailureLoading(AuthFailureState state) {
+    return WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        if (mounted) {
+          _activityBar = state.loadingBar;
+          setState(() {});
+        }
+      },
     );
   }
 

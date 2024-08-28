@@ -6,7 +6,7 @@ import 'package:socia/features/profile/data/models/user_model.dart';
 class StoryService {
   String image = '';
   String errorMessage = '';
-  List<UserList> userList = [];
+  List<UserItem> userList = [];
   List<String> imageList = [];
 
   Future<bool> requestToGetStoryImageAndProfile() async {
@@ -32,7 +32,7 @@ class StoryService {
           if (snapshot.exists && snapshot.data() != null) {
             var dataMap = snapshot.data();
             if (dataMap != null) {
-              userList.add(UserList.fromJson(dataMap));
+              userList.add(UserItem.fromJson(dataMap));
             }
           } else {
             errorMessage = "Data doesn't exist";
@@ -83,7 +83,7 @@ class StoryService {
                   .then((value) {
                 final userData = value.data();
                 if (value.exists && userData != null) {
-                  userList.add(UserList.fromJson(userData));
+                  userList.add(UserItem.fromJson(userData));
                 } else {
                   errorMessage = 'Empty user data';
                 }

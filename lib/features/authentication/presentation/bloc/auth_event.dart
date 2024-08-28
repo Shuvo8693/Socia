@@ -12,7 +12,7 @@ class AuthStartedEvent extends AuthEvent {}
 class AuthRegisteredEvent extends AuthEvent {
   final String email;
   final String password;
-  final UserList userModel;
+  final UserItem userModel;
   final BuildContext context;
 
   AuthRegisteredEvent(this.context,

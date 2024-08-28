@@ -13,7 +13,7 @@ class LoadingStoryState extends StoryState {}
 
 class ImageProfileLoadStoryState extends StoryState {
   final String image;
-  final List<UserList> userList;
+  final List<UserItem> userList;
 
   ImageProfileLoadStoryState({required this.image, required this.userList});
 }

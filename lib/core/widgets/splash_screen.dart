@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_sizes.dart';
+import 'package:socia/core/extention/size_extention.dart';
 import 'package:socia/core/routing/router.dart';
 import 'package:socia/core/utility/logo.dart';
+import 'package:socia/core/widgets/spacing/spacing.dart';
 
 import 'button/common_button.dart';
 import 'button_text.dart';
@@ -29,29 +31,26 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                  height: SizeConfig.desktopScreen ? 70 : 60,
-                  width: 350,
-                  child: Image.asset(
-                    AppLogo.logo,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  )),
-              const SizedBox(
-                height: 48,
+                height: SizeConfig.desktopScreen ? 70.rH : 60.rH,
+                width: 350.rW,
+                child: Image.asset(
+                  AppLogo.logo,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
+              verticalSpace(48.rH),
               CommonButton(
                 onPressed: () {
-                 return Routers.pushNamed(
+                  return Routers.pushNamed(
                       routeName: Routers.logInScreen,
                       queryParam: {'isLogin': false});
                 },
                 text: 'Create Account',
               ),
-              const SizedBox(
-                height: 12,
-              ),
+              verticalSpace(12.rH),
               ButtonText(
                 onPressed: () {
-                 return Routers.pushNamed(
+                  return Routers.pushNamed(
                       routeName: Routers.logInScreen,
                       queryParam: {'isLogin': true});
                 },

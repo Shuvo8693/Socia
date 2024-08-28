@@ -49,8 +49,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AppIcons.home,
-              width: 24.rW(context),
-              height: 24.rH(context),
+              width: 24.rW,
+              height: 24.rH,
               colorFilter: currentIndex == 0
                   ? const ColorFilter.mode(
                       AppColors.primaryColor, BlendMode.srcIn)
@@ -65,8 +65,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 AppIcons.search,
-                width: 24.rW(context),
-                height: 24.rH(context),
+                width: 24.rW,
+                height: 24.rH,
                 colorFilter: currentIndex == 1
                     ? const ColorFilter.mode(
                         AppColors.primaryColor, BlendMode.srcIn)
@@ -80,8 +80,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 AppIcons.add,
-                width: 24.rW(context),
-                height: 24.rH(context),
+                width: 24.rW,
+                height: 24.rH,
                 colorFilter: currentIndex == 2
                     ? const ColorFilter.mode(
                         AppColors.primaryColor, BlendMode.srcIn)
@@ -95,8 +95,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 AppIcons.profile,
-                width: 24.rW(context),
-                height: 24.rH(context),
+                width: 24.rW,
+                height: 24.rH,
                 colorFilter: currentIndex == 3
                     ? const ColorFilter.mode(
                         AppColors.primaryColor, BlendMode.srcIn)
