@@ -20,29 +20,19 @@ class AddStoryService {
           .ref()
           .child('story_images/$constUid/${image.path.split('/').last}');
       if (imageData.isNotEmpty) {
-        await storagePath.putData(imageData).then((TaskSnapshot task) async {
-          String url = await task.ref.getDownloadURL();
+        TaskSnapshot task = await storagePath.putData(imageData);
+        String url = await task.ref.getDownloadURL();
 
-          QuerySnapshot valueData = await _fireStore
-              .collection('Story')
-              .where('userId', isEqualTo: constUid)
-              .get();
-
-          if (valueData.docs.isNotEmpty) {
-            for (var doc in valueData.docs) {
-              await _fireStore
-                  .collection('Story')
-                  .doc(doc.id)
-                  .update({'imageUrl': url});
-            }
-          } else {
-            await _fireStore
-                .collection('Story')
-                .doc(constUid)
-                .set({'imageUrl': url, 'userId': constUid});
-          }
-        });
-        return true;
+        QuerySnapshot valueData = await _fireStore
+            .collection('Story')
+            .where('userId', isEqualTo: constUid)
+            .get();
+        bool result = await uploadImage(url, constUid, valueData);
+        if (result) {
+          return true;
+        } else {
+          return false;
+        }
       } else {
         errorMessage = 'Please input image';
         log(errorMessage);
@@ -50,6 +40,29 @@ class AddStoryService {
       }
     } catch (error) {
       log(error.toString());
+      return false;
+    }
+  }
+
+  Future<bool> uploadImage(
+      String url, String uID, QuerySnapshot valueData) async {
+    try {
+      if (valueData.docs.isNotEmpty) {
+        for (var doc in valueData.docs) {
+          await _fireStore
+              .collection('Story')
+              .doc(doc.id)
+              .update({'imageUrl': url});
+        }
+      } else {
+        await _fireStore
+            .collection('Story')
+            .doc(uID)
+            .set({'imageUrl': url, 'userId': uID});
+      }
+      return true;
+    } on Exception catch (error) {
+      errorMessage = 'An error occurred : $error';
       return false;
     }
   }

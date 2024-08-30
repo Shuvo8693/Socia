@@ -16,7 +16,7 @@ class GetPostService {
           .collection('User')
           .doc('0JSumE4bmSTZk45canRG3KRujmN2')
           .get();
-      List<String> followingList = List<String>.from(document['Following']);
+      List<dynamic> followingList = document['Following'];
       if (followingList.isNotEmpty) {
         await fireStore
             .collection('Post')
@@ -37,7 +37,10 @@ class GetPostService {
       }
       return postListModal.isNotEmpty;
     } catch (error) {
-      errorMessage = error.toString();
+      errorMessage = 'Something went wrong: Unable to load data ';
+      if(error is FormatException){
+        errorMessage= error.message;
+      }
       log(errorMessage);
       return false;
     }

@@ -7,18 +7,18 @@ import 'package:socia/features/home/presentation/bloc/get_post_bloc/get_post_sta
 import 'get_post_event.dart';
 
 class GetPostBloc extends Bloc<GetPostEvent, GetPostState> {
+  final GetPostService getPostService;
+
   GetPostBloc({required this.getPostService})
       : super(InitializedGetPostState()) {
     on<LoadedGetPostEvent>(
-        (event, emit) async => await onLoadedGetPostEvent(event, emit));
+        (event, emit) async => await onLoadGetPostEvent(event, emit));
   }
 
-  final GetPostService getPostService;
-
-  onLoadedGetPostEvent(event, emit) async {
-    try {
-      emit(LoadingGetPostState());
-      await getPostService.fetchPost().then((bool value) async {
+  onLoadGetPostEvent(event, emit) async {
+    emit(LoadingGetPostState());
+    await getPostService.fetchPost().then(
+      (bool value) async {
         if (value) {
           await emit(
               LoadedGetPostState(postListModal: getPostService.postListModal));
@@ -26,10 +26,7 @@ class GetPostBloc extends Bloc<GetPostEvent, GetPostState> {
           emit(FailureGetPostState(getPostService.errorMessage));
           log(getPostService.errorMessage);
         }
-      });
-    } catch (error, stackTrace) {
-      emit(FailureGetPostState(stackTrace.toString()));
-      log(stackTrace.toString());
-    }
+      },
+    );
   }
 }
