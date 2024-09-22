@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:socia/core/utility/service/firebase_resource.dart';
 import 'package:socia/features/profile/data/models/user_model.dart';
 
 class StoryService {
@@ -8,14 +9,15 @@ class StoryService {
   String errorMessage = '';
   List<UserItem> userList = [];
   List<String> imageList = [];
+  final String uID = FirebaseResource.currentUID;
 
   Future<bool> requestToGetStoryImageAndProfile() async {
     final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    // final String uID = FirebaseAuth.instance.currentUser!.uid;
+
     try {
       await fireStore
           .collection('Story')
-          .where('userId', isEqualTo: '0JSumE4bmSTZk45canRG3KRujmN2')
+          .where('userId', isEqualTo: uID)
           .get()
           .then((QuerySnapshot<Map<String, dynamic>> snapshot) async {
         if (snapshot.docs.isNotEmpty) {
@@ -26,7 +28,7 @@ class StoryService {
       }).whenComplete(() async {
         await fireStore
             .collection('User')
-            .doc('0JSumE4bmSTZk45canRG3KRujmN2')
+            .doc(uID)
             .get()
             .then((DocumentSnapshot<Map<String, dynamic>> snapshot) {
           if (snapshot.exists && snapshot.data() != null) {
@@ -50,13 +52,8 @@ class StoryService {
 
   Future<bool> requestToGetStoryList() async {
     final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    //final String uID = FirebaseAuth.instance.currentUser!.uid;
     try {
-      await fireStore
-          .collection('User')
-          .doc('0JSumE4bmSTZk45canRG3KRujmN2')
-          .get()
-          .then((value) async {
+      await fireStore.collection('User').doc(uID).get().then((value) async {
         List<dynamic> followingList = await value.get('Following');
         if (value.exists) {
           await fireStore

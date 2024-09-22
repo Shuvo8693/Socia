@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:socia/config/theme/app_icons.dart';
+import 'package:socia/core/utility/dummypicturelink.dart';
+import 'package:socia/core/widgets/app_bar_title.dart';
+import 'package:socia/core/widgets/view_tile_profile_screen.dart';
 
-import '../../../../core/utility/dummypicturelink.dart';
-import '../../../../core/widgets/app_bar_title.dart';
-import '../../../../core/widgets/view_tile_profile_screen.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

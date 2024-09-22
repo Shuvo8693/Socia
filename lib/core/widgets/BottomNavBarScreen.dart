@@ -7,8 +7,6 @@ import 'package:socia/features/home/presentation/screen/home_screen.dart';
 import 'package:socia/features/profile/presentation/screen/profile_screen.dart';
 import 'package:socia/features/search/presentation/screen/search_screen.dart';
 
-
-
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({super.key});
 

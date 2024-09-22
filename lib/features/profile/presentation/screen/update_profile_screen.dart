@@ -12,12 +12,12 @@ import 'package:socia/core/widgets/button/back_button_svg.dart';
 import 'package:socia/core/widgets/button/common_button.dart';
 import 'package:socia/core/widgets/form_text_field.dart';
 import 'package:socia/features/profile/data/models/update_user_model.dart';
+import 'package:socia/features/profile/data/service/update_profile_service.dart';
 import 'package:socia/features/profile/presentation/bloc/update_profile_bloc.dart';
 import 'package:socia/features/profile/presentation/bloc/update_profile_event.dart';
 import 'package:socia/features/profile/presentation/bloc/update_profile_state.dart';
 import 'package:socia/features/profile/presentation/widget/profile_image_selector.dart';
-
-
+import 'package:socia/injection_container.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
@@ -33,6 +33,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   XFile? _imageFile;
   final ImagePicker _imagePicker = ImagePicker();
+  final UpdateProfileBloc _updateProfileBloc =
+      UpdateProfileBloc(updateProfileService: di<UpdateProfileService>());
 
   @override
   void didChangeDependencies() {
@@ -76,9 +78,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 _displayNameTEC.text.isNotEmpty
                     ? namingText(
                         text: _displayNameTEC.text,
@@ -91,9 +91,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 _userNameTEC.text.isNotEmpty
                     ? namingText(text: _userNameTEC.text)
                     : namingText(text: 'userName654'),
-                const SizedBox(
-                  height: 25,
-                ),
+                const SizedBox(height: 25),
                 FormTextField(
                   controller: _bioTEC,
                   hintText: 'Bio',
@@ -101,9 +99,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   maxLine: 3,
                   contentPadding: 10,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 FormTextField(
                   controller: _displayNameTEC,
                   hintText: 'Display Name',
@@ -111,14 +107,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   contentPadding: 10,
                   validator: (String? value) {
                     if (value!.isEmpty) {
-                      return 'Enter Display name';
+                      return null;
                     }
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 FormTextField(
                   controller: _userNameTEC,
                   hintText: 'User Name',
@@ -126,55 +120,57 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   contentPadding: 10,
                   validator: (String? value) {
                     if (value!.isEmpty) {
-                      return 'Enter userName';
+                      return null;
                     }
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
-                BlocBuilder<UpdateProfileBloc, UpdateProfileState>(
-                  builder: (BuildContext context, state) {
-                    if (state is LoadingUpdateProfileState) {
-                      return const Center(
-                        child: CupertinoActivityIndicator(),
-                      );
-                    } else if (state is FailureUpdateProfileState) {
-                      log(state.failureMessage);
-                    } else if (state is LoadUpdateProfileState) {
-                      return CommonButton(
-                          onPressed: () {
-                            if (!_formKey.currentState!.validate()) {
-                              return;
-                            }
-                            context.read<UpdateProfileBloc>().add(
-                                LoadUpdateProfileEvent(
-                                    updateUserModel: UpdateUserModel(
-                                        userName: _userNameTEC.text,
-                                        displayName: _displayNameTEC.text,
-                                        bio: _bioTEC.text),
-                                    imageFile: _imageFile ?? XFile(''),
-                                    context: context));
-                          },
-                          text: 'Update');
-                    }
-                    return CommonButton(
-                        onPressed: () {
-                          if (!_formKey.currentState!.validate()) {
-                            return;
-                          }
-                          context.read<UpdateProfileBloc>().add(
-                              LoadUpdateProfileEvent(
+                const SizedBox(height: 25),
+                BlocProvider(
+                  create: (context) => _updateProfileBloc,
+                  child: BlocBuilder<UpdateProfileBloc, UpdateProfileState>(
+                    builder: (BuildContext context, state) {
+                      if (state is LoadingUpdateProfileState) {
+                        return const Center(
+                          child: CupertinoActivityIndicator(),
+                        );
+                      } else if (state is FailureUpdateProfileState) {
+                        log(state.failureMessage);
+                      } else if (state is LoadUpdateProfileState) {
+                        return CommonButton(
+                            onPressed: () {
+                              if (!_formKey.currentState!.validate()) {
+                                return;
+                              }
+                              _updateProfileBloc.add(LoadUpdateProfileEvent(
                                   updateUserModel: UpdateUserModel(
                                       userName: _userNameTEC.text,
                                       displayName: _displayNameTEC.text,
                                       bio: _bioTEC.text),
                                   imageFile: _imageFile ?? XFile(''),
                                   context: context));
-                        },
-                        text: 'Update');
-                  },
+                            },
+                            text: 'Update');
+                      }
+                      return CommonButton(
+                          onPressed: () {
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+                            context.read<UpdateProfileBloc>().add(
+                                  LoadUpdateProfileEvent(
+                                    updateUserModel: UpdateUserModel(
+                                        userName: _userNameTEC.text,
+                                        displayName: _displayNameTEC.text,
+                                        bio: _bioTEC.text),
+                                    imageFile: _imageFile ?? XFile(''),
+                                    context: context,
+                                  ),
+                                );
+                          },
+                          text: 'Update');
+                    },
+                  ),
                 ),
               ],
             ),

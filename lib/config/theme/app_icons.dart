@@ -30,4 +30,5 @@ class AppIcons {
   static String gallery = 'assets/images/Gallery.svg';
   static String profileUpdate = 'assets/images/profile_update.png';
   static String profileCameraPng = 'assets/images/blackCamera.png';
+  static String noImagePerson = 'assets/images/noImagePerson.png';
 }

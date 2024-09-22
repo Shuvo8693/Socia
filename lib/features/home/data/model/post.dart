@@ -23,18 +23,18 @@ class PostList {
     required this.timestamp,
   });
 
-  factory PostList.fromFireStore(DocumentSnapshot doc) {
-    Map data = doc.data() as Map;
+  factory PostList.fromFireStore(Map<String,dynamic> data) {
     return PostList(
-        userName: data['userName'],
-        profilePictureURL: data['profilePictureURL'],
-        displayName: data['displayName'],
-        imageUrl: data['imageUrl'],
-        caption: data['caption'],
-        commentCount: data['commentCount'],
-        likeCount: data['likeCount'],
-        userId: data['userId'],
-        timestamp: data['timestamp']);
+      userName: data['userName'],
+      profilePictureURL: data['profilePictureURL'],
+      displayName: data['displayName'],
+      imageUrl: data['imageUrl'],
+      caption: data['caption'],
+      commentCount: data['commentCount'],
+      likeCount: data['likeCount'],
+      userId: data['userId'],
+      timestamp: data['timestamp'],
+    );
   }
 
   Map<String, dynamic> toFireStore() {

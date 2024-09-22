@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// https://colors.artyclick.com/color-name-finder/
 class AppColors {
   static const Color primaryColor = Color(0xff4478FF);
   static const Color textFieldBorderSideAndSenderBarColor = Color(0xff6993FF);

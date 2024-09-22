@@ -6,18 +6,21 @@ class CommonFormField extends StatelessWidget {
     required this.controller,
     required this.hintText,
     this.maxLine,
+    this.validator,
   });
 
   final TextEditingController controller;
   final String hintText;
   final int? maxLine;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       maxLines: maxLine ?? 2,
       keyboardType: TextInputType.text,
-      controller: TextEditingController(),
+      validator: validator,
+      controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey.shade400),

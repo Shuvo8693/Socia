@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:socia/core/utility/service/firebase_resource.dart';
 
 class AddStoryService {
   String errorMessage = '';
@@ -11,23 +12,22 @@ class AddStoryService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   Future<bool> requestToUploadImageStory(XFile image) async {
-    String constUid = '0JSumE4bmSTZk45canRG3KRujmN2';
-    // String uID = FirebaseAuth.instance.currentUser!.uid;
+     String uID = FirebaseResource.currentUID;
     Uint8List imageData = await image.readAsBytes();
 
     try {
       final storagePath = _firebaseStorage
           .ref()
-          .child('story_images/$constUid/${image.path.split('/').last}');
+          .child('story_images/$uID/${image.path.split('/').last}');
       if (imageData.isNotEmpty) {
         TaskSnapshot task = await storagePath.putData(imageData);
         String url = await task.ref.getDownloadURL();
 
         QuerySnapshot valueData = await _fireStore
             .collection('Story')
-            .where('userId', isEqualTo: constUid)
+            .where('userId', isEqualTo: uID)
             .get();
-        bool result = await uploadImage(url, constUid, valueData);
+        bool result = await uploadImage(url, uID, valueData);
         if (result) {
           return true;
         } else {

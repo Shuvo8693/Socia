@@ -3,11 +3,11 @@ import 'package:socia/config/theme/app_icons.dart';
 import 'package:socia/core/extention/size_extention.dart';
 import 'package:socia/core/utility/assets_image.dart';
 import 'package:socia/core/widgets/button/svg_fab_button.dart';
-import 'package:socia/features/home/data/model/post_modal.dart';
+import 'package:socia/core/widgets/spacing/spacing.dart';
+import 'package:socia/features/home/data/model/post.dart';
 import 'package:socia/features/home/presentation/widget/timeline_post_element/caption_expansion_indicator.dart';
 import 'package:socia/features/home/presentation/widget/timeline_post_element/like_comment.dart';
 import 'package:socia/features/home/presentation/widget/timeline_post_element/timeline_picture.dart';
-import 'package:socia/features/home/presentation/widget/timeline_post_element/write_comment&post_section.dart';
 
 class TimeLinePostElement extends StatefulWidget {
   const TimeLinePostElement({
@@ -73,8 +73,8 @@ class _TimeLinePostElementState extends State<TimeLinePostElement> {
                 onPressed: () => toggleTextExpanded(),
               ),
         TimelinePicture(widget: widget),
-        LikeComment(),
-        WriteCommentPostSection(widget: widget),
+        LikeComment(postList: widget.postListIndex,),
+        verticalSpace(8.rH)
       ],
     );
   }

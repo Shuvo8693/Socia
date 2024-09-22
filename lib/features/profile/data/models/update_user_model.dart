@@ -10,10 +10,9 @@ class UpdateUserModel {
 
   Map<String, dynamic> toFireStore() {
     Map<String, dynamic> data = {};
-    data['Bio'] = bio;
-    data['displayName'] = displayName;
-    data['userName'] = userName;
-
+   bio.isNotEmpty? data['Bio'] = bio: null;
+   displayName.isNotEmpty? data['displayName'] = displayName : null;
+   userName.isNotEmpty? data['userName'] = userName : null;
     return data;
   }
 }

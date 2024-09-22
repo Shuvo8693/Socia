@@ -23,21 +23,24 @@ class FoUnfMsgButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: isReverseBgColor == true
-                ? MaterialStatePropertyAll(isBgColorGrey == true
-                    ? AppColors.followUnfollowMessageColor
-                    : AppColors.textFieldBorderSideAndSenderBarColor)
-                : MaterialStatePropertyAll(isBgColorGrey != true
-                    ? AppColors.textFieldBorderSideAndSenderBarColor
-                    : AppColors.followUnfollowMessageColor),
-            foregroundColor: isReverseBgColor == true
-                ? MaterialStatePropertyAll(
-                    isBgColorGrey == true ? Colors.black : Colors.white)
-                : MaterialStatePropertyAll(
-                    isBgColorGrey != true ? Colors.white : Colors.black),
-            padding: MaterialStatePropertyAll(EdgeInsets.symmetric(
+          backgroundColor: isReverseBgColor == true
+              ? WidgetStatePropertyAll(isBgColorGrey == true
+                  ? AppColors.followUnfollowMessageColor
+                  : AppColors.textFieldBorderSideAndSenderBarColor)
+              : WidgetStatePropertyAll(isBgColorGrey != true
+                  ? AppColors.textFieldBorderSideAndSenderBarColor
+                  : AppColors.followUnfollowMessageColor),
+          foregroundColor: isReverseBgColor == true
+              ? WidgetStatePropertyAll(
+                  isBgColorGrey == true ? Colors.black : Colors.white)
+              : WidgetStatePropertyAll(
+                  isBgColorGrey != true ? Colors.white : Colors.black),
+          padding: WidgetStatePropertyAll(
+            EdgeInsets.symmetric(
               horizontal: paddingHorizontal ?? 8,
-            ))),
+            ),
+          ),
+        ),
         onPressed: onPressed,
         child: isReverseBgColor != true
             ? Text(text ?? 'enter title')

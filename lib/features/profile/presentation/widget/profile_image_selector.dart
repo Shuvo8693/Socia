@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../config/theme/app_color.dart';
-import '../../../../config/theme/app_icons.dart';
+import 'package:socia/config/theme/app_color.dart';
+import 'package:socia/config/theme/app_icons.dart';
+
 
 class ProfileImageSelector extends StatelessWidget {
   const ProfileImageSelector({

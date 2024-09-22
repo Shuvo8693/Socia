@@ -25,14 +25,17 @@ class _HomePageStoryState extends State<HomePageStory> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        /// user story area
-        BlocProvider(
-          create: (context) => widget._storyBloc,
-          child: BlocBuilder<StoryBloc, StoryState>(
-            builder: (BuildContext context, state) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: widget._storyBloc),
+        BlocProvider.value(value: widget._storyListBloc),
+      ],
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// user story area
+          BlocBuilder<StoryBloc, StoryState>(
+            builder: (context, state) {
               if (state is LoadingStoryState) {
                 return const Center(
                   child: CupertinoActivityIndicator(),
@@ -52,13 +55,10 @@ class _HomePageStoryState extends State<HomePageStory> {
                   imageIndex: '', shouldUseAddIcon: false, text: '', image: '');
             },
           ),
-        ),
 
-        /// Following storyList area
-        BlocProvider(
-          create: (context) => widget._storyListBloc,
-          child: BlocBuilder<StoryListBloc, StoryListState>(
-            builder: (BuildContext context, stateValue) {
+          /// Following storyList area
+          BlocBuilder<StoryListBloc, StoryListState>(
+            builder: (context, stateValue) {
               if (stateValue is LoadingListStoryState) {
                 return Center(
                   widthFactor: 10.rW,
@@ -92,8 +92,8 @@ class _HomePageStoryState extends State<HomePageStory> {
               return const SizedBox.shrink();
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

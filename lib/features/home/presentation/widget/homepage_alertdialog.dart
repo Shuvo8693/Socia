@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socia/config/theme/app_icons.dart';
+import 'package:socia/core/extention/size_extention.dart';
 import 'package:socia/core/widgets/spacing/spacing.dart';
 import 'package:socia/core/widgets/button/svg_ink_button.dart';
 
@@ -22,7 +23,7 @@ class HomePageAlertDialog extends StatelessWidget {
           const Text('Select From',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.0.rP),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -42,15 +43,15 @@ class HomePageAlertDialog extends StatelessWidget {
                           },
                         );
                       },
-                      pictureHeight: 88,
-                      pictureWidth: 88,
+                      pictureHeight: 88.rH,
+                      pictureWidth: 88.rW,
                     ),
                     const Text('Camera',
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w700)),
                   ],
                 ),
-                horizontalSpace(16),
+                horizontalSpace(16.rW),
                 Column(
                   children: [
                     SvgInkButton(
@@ -61,8 +62,8 @@ class HomePageAlertDialog extends StatelessWidget {
                             source: ImageSource.gallery);
                         Navigator.pop(context);
                       },
-                      pictureHeight: 88,
-                      pictureWidth: 88,
+                      pictureHeight: 88.rH,
+                      pictureWidth: 88.rW,
                     ),
                     const Text(
                       'Gallery',

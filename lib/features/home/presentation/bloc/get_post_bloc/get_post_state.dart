@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:socia/features/home/data/model/post_modal.dart';
+import 'package:socia/features/home/data/model/post.dart';
 
 abstract class GetPostState extends Equatable {
   @override

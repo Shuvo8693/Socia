@@ -1,50 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socia/config/theme/app_icons.dart';
-import 'package:socia/core/utility/dummypicturelink.dart';
+import 'package:socia/core/extention/size_extention.dart';
 import 'package:socia/core/utility/logo.dart';
 import 'package:socia/core/widgets/button/svg_fab_button.dart';
 import 'package:socia/core/widgets/profile_update_alertdialog.dart';
+import 'package:socia/features/home/presentation/bloc/get_profileimage_bloc/profile_image_bloc.dart';
+import 'package:socia/features/home/presentation/bloc/get_profileimage_bloc/profile_image_state.dart';
 import 'package:socia/features/message/presentation/screen/message_screen.dart';
 import 'package:socia/features/notifications/presentation/screen/notification_screen.dart';
 import 'package:socia/features/profile/presentation/screen/update_profile_screen.dart';
 
-
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
+  final ProfileImageBloc profileImageBloc;
 
   const HomeAppBar({
     super.key,
+    required this.profileImageBloc,
   }) : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding:  EdgeInsets.all(8.0.rP),
         child: GestureDetector(
           onTap: () {
-             profileUpdateAlert(context);
+            profileUpdateAlert(context);
           },
           child: ClipOval(
-            child: Image.network(
-              DummyUrlImage.profile,
-              fit: BoxFit.cover,
+            child: BlocProvider(
+              create: (context) => profileImageBloc,
+              child: BlocBuilder<ProfileImageBloc, ProfileImageState>(
+                builder: (context, state) {
+                  if(state is LoadingProfileImageState){
+                    return Image.asset(AppIcons.noImagePerson);
+                  } else if (state is FailureProfileImageState) {
+                    return Image.asset(AppIcons.noImagePerson);
+                  } else if (state is LoadedProfileImageState) {
+                    return Image.network(
+                      state.imageData,
+                      fit: BoxFit.cover,
+                    );
+                  }else{
+                    return Image.asset(AppIcons.noImagePerson);
+                  }
+                },
+              ),
             ),
           ),
         ),
       ),
       title: SizedBox(
-          height: 30,
-          width: 223,
-          child: Image.asset(
-            AppLogo.logo,
-            fit: BoxFit.scaleDown,
-            color: Theme.of(context).colorScheme.onPrimary,
-          )),
+        height: 30.rH,
+        width: 223.rW,
+        child: Image.asset(
+          AppLogo.logo,
+          fit: BoxFit.scaleDown,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+      ),
       actions: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(8.0.rP),
           child: CircleAvatar(
             child: SvgFabButton(
               onPressed: () {
@@ -61,7 +81,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 10),
+          padding:  EdgeInsets.only(right: 10.rW),
           child: CircleAvatar(
             child: SvgFabButton(
               onPressed: () {
@@ -77,17 +97,23 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ],
     );
-
   }
+
   void profileUpdateAlert(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (context) {
-          return ProfileUpdateDialog(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>const UpdateProfileScreen()));
-            },
-          );
-        });
+      context: context,
+      builder: (context) {
+        return ProfileUpdateDialog(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const UpdateProfileScreen(),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
